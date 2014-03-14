@@ -1028,7 +1028,6 @@ var
 				a := RPK_RightButton;
 			end;
 		end else if ( event.type_ = SDL_VIDEORESIZE ) then begin
-			writeln('Resizing');
 			if DoFullScreen then begin
 				Game_Screen := SDL_SetVideoMode(event.resize.w, event.resize.h, 32, SDL_RESIZABLE or SDL_DOUBLEBUF or SDL_FULLSCREEN );
 			end else begin
