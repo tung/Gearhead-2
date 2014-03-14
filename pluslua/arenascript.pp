@@ -361,7 +361,7 @@ var
 		CID: LongInt;
 	begin
 		{ Step One- Create the menu. }
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_MemoMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_MemoMenu );
 		CheckAlongList( RPM , GB^.Meks );
 		City := FindRootScene( GB^.Scene );
 		if City <> Nil then begin
@@ -400,7 +400,7 @@ var
 		{ Locate the PC. We need it for the PComm capability. }
 		PC := LocatePC( GB );
 		if MemoList <> Nil then begin
-			RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_MemoMenu );
+			RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_MemoMenu );
 			AddRPGMenuItem( RPM , MsgString( 'MEMO_Next' ) , 1 );
 			AddRPGMenuItem( RPM , MsgString( 'MEMO_Prev' ) , 2 );
 			if ( PC <> Nil ) and HasPCommCapability( PC , PCC_Phone ) then AddRPGMenuItem( RPM , MsgString( 'MEMO_Call' ) , 3 );
@@ -745,7 +745,7 @@ var
 	rpm: RPGMenuPtr;
 	N: Integer;
 begin
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_MemoMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_MemoMenu );
 	AddRPGMenuItem( RPM , YesMsg , 1 );
 	AddRPGMenuItem( RPM , NoMsg , -1 );
 	RPM^.Mode := RPMNoCancel;
@@ -1061,7 +1061,7 @@ begin
 		while ( LancematesPresent( GB ) >= NumLancemateSlots( GB^.Scene , PC ) ) and NoCancel do begin
 			{ Remove lancemates to make room for NPC. }
 			{ Create the menu. }
-			RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_MemoMenu );
+			RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_MemoMenu );
 
 			{ Create the list. }
 			LM := GB^.Meks;
@@ -1229,7 +1229,7 @@ var
 	MI: RPGMenuItemPtr;	{ For removing options once they've been used. }
 begin
 	{ Start by allocating the menu. }
-	IntMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InteractMenu );
+	IntMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InteractMenu );
 	IntMenu^.Mode := RPMEscCancel;
 
 	{ Initialize interaction variables. }
@@ -2923,7 +2923,7 @@ initialization
 	I_NPC := Nil;
 	IntMenu := Nil;
 
-	AS_Menu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_MemoMenu );
+	AS_Menu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_MemoMenu );
 	AS_Menu^.Mode := RPMNoCancel;
 
 	AS_GB := Nil;

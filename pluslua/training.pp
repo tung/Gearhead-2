@@ -91,7 +91,7 @@ Procedure DoTraining( GB: GameBoardPtr; PC: GearPtr; RD: RedrawProcedureType );
 			FXP := NAttValue( PC^.NA , NAG_Experience , NAS_TotalXP ) - NAttValue( PC^.NA , NAG_Experience , NAS_SpentXP );
 
 			{ Create the skill menu. }
-			SkMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+			SkMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 			Sk := PC^.NA;
 
 			SkMenu^.dtexcolor := InfoGreen;
@@ -194,7 +194,7 @@ Procedure DoTraining( GB: GameBoardPtr; PC: GearPtr; RD: RedrawProcedureType );
 			FXP := NAttValue( PC^.NA , NAG_Experience , NAS_TotalXP ) - NAttValue( PC^.NA , NAG_Experience , NAS_SpentXP );
 
 			{ Create the skill menu. }
-			StMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+			StMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 
 			for t := 1 to NumGearStats do begin
 				{ Find out how many times this stat has been }
@@ -288,7 +288,7 @@ Procedure DoTraining( GB: GameBoardPtr; PC: GearPtr; RD: RedrawProcedureType );
 		{ Create the skill menu. }
 		{ We only want this menu to contain skills the PC does }
 		{ not currently know. }
-		SkMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+		SkMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 
 		AttachMenuDesc( SkMenu , ZONE_Info );
 
@@ -318,7 +318,7 @@ Procedure DoTraining( GB: GameBoardPtr; PC: GearPtr; RD: RedrawProcedureType );
 			end else begin
 				{ Improve the skill, pay the XP. }
 				if NumberOfSpecialties( PC ) >= NumberOfSkillSlots( PC ) then begin
-					SkMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+					SkMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 
 					AttachMenuDesc( SkMenu , ZONE_Info );
 
@@ -370,7 +370,7 @@ Procedure DoTraining( GB: GameBoardPtr; PC: GearPtr; RD: RedrawProcedureType );
 		{ Create the skill menu. }
 		{ We only want this menu to contain skills the PC does }
 		{ not currently know. }
-		TMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+		TMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 
 		AttachMenuDesc( TMenu , ZONE_Info );
 
@@ -420,7 +420,7 @@ Procedure DoTraining( GB: GameBoardPtr; PC: GearPtr; RD: RedrawProcedureType );
 		N: LongInt;		{ A number }
 	begin
 		{ Create the skill menu. }
-		TMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+		TMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 
 
 		AttachMenuDesc( TMenu , ZONE_Info );
@@ -447,7 +447,7 @@ Procedure DoTraining( GB: GameBoardPtr; PC: GearPtr; RD: RedrawProcedureType );
 		TMenu: RPGMenuPtr;	{ Training Hall Menu }
 	begin
 		{ Create the cyber menu. }
-		TMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+		TMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 
 		AttachMenuDesc( TMenu , ZONE_Info );
 
@@ -481,7 +481,7 @@ begin
 	TRAINING_Redrawer := RD;
 
 	repeat
-		DTMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+		DTMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 		AddRPGMenuItem( DTMenu , MsgString( 'TRAINING_ImproveSkill' ) , 1 );
 		AddRPGMenuItem( DTMenu , MsgString( 'TRAINING_NewSkill' ) , 2 );
 		AddRPGMenuItem( DTMenu , MsgString( 'TRAINING_ReviewCyberware' ) , 6 );

@@ -963,8 +963,8 @@ begin
 	end;
 
 	{ Allocate the menus. }
-	ADR_PilotMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ArenaPilotMenu );
-	ADR_MechaMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ArenaMechaMenu );
+	ADR_PilotMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ArenaPilotMenu );
+	ADR_MechaMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ArenaMechaMenu );
 
 	{ Go through the unit contents, adding to whichever menu is appropriate. }
 	M := HQCamp^.Source^.SubCom;
@@ -1051,7 +1051,7 @@ procedure AddPilotToUnit( HQCamp: CampaignPtr );
 		ISaidYes: Boolean;
 	begin
 		{ Create the menu. }
-		YNMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+		YNMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 		cost := HiringPrice( PC );
 		if HQCash( HQCamp ) >= cost then begin
 			AddRPGMenuItem( YNMenu , MsgString( 'ARENA_APTU_Yes' ) + ' ($' + BStr( cost ) + ')' , 1 );
@@ -1104,7 +1104,7 @@ begin
 	{ Keep querying for characters until cancel is selected. }
 	repeat
 		{ Create the PC menu. }
-		PCMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+		PCMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 		BuildSiblingMenu( PCMenu , PCList );
 		RPMSortAlpha( PCMenu );
 		AlphaKeyMenu( PCMenu );
@@ -1160,7 +1160,7 @@ var
 begin
 	Cost := ModifiedCost( HQCamp , GearCost( Part ) , NAS_Shopping );
 
-	YNMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+	YNMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 	AddRPGMenuItem( YNMenu , ReplaceHash( MsgString( 'ARENA_PurchaseYes' ) , GearName( Part ) ) + ' ($' + BStr( Cost ) + ')' , 1 );
 	AddRPGMenuItem( YNMenu , MsgSTring( 'ARENA_PurchaseNo' ) , -1 );
 
@@ -1232,7 +1232,7 @@ begin
 	end;
 
 	{ Create the mecha menu. }
-	MekMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+	MekMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 	BuildSiblingMenu( MekMenu , MekList );
 	RPMSortAlpha( MekMenu );
 	AddRPGMenuItem( MekMenu , MsgString( 'Exit' ) , -1 );
@@ -1336,7 +1336,7 @@ begin
 	repeat
 		ADR_Source := PC;
 
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ArenaMechaMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ArenaMechaMenu );
 
 		AddRPGMenuItem( RPM , MsgString( 'ARENA_VMEK_AssignPilot' ) , 1 );
 		AddRPGMenuItem( RPM , MsgString( 'ARENA_VMEK_ViewInventory' ) , 5 );
@@ -1396,7 +1396,7 @@ Procedure ViewItem( HQCamp: CampaignPtr; Part: GearPtr );
 		N: Integer;
 	begin
 		{ Start by allocating the menu. }
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ArenaMechaMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ArenaMechaMenu );
 
 		{ Add all the whoevers that might be able to accept this item. }
 		Mek := HQCamp^.Source^.SubCom;
@@ -1437,7 +1437,7 @@ begin
 	repeat
 		ADR_Source := Part;
 
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ArenaMechaMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ArenaMechaMenu );
 
 		AddRPGMenuItem( RPM , MsgString( 'ARENA_VItem_SellItem' ) + ' ($' + BStr( SalePrice ) + ')' , -2 );
 		AddRPGMenuItem( RPM , MsgString( 'ARENA_VItem_GiveItem' ) , -3 );
@@ -1524,7 +1524,7 @@ begin
 	Direct_Skill_Learning := True;
 
 	{ Step One: Create the skills menu. }
-	SkillMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ArenaPilotMenu );
+	SkillMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ArenaPilotMenu );
 
 	for N := 1 to NumSkill do begin
 		if NAttValue( HQCamp^.Source^.NA , NAG_AHQSkillTrainer , N ) <> 0 then begin
@@ -1542,7 +1542,7 @@ begin
 		if ( Skill >= 1 ) and ( Skill <= NumSkill ) then begin
 			{ Create the CostMenu, and see how much the }
 			{ player wants to spend. }
-			CostMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ArenaPilotMenu );
+			CostMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ArenaPilotMenu );
 			Cash := HQCash( HQCamp );
 
 			{ Add menu entries for each of the cost values }
@@ -1635,7 +1635,7 @@ begin
 	repeat
 		ADR_Source := PC;
 
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ArenaPilotMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ArenaPilotMenu );
 
 		AddRPGMenuItem( RPM , MsgString( 'ARENA_VCHAR_DoTraining' ) , 4 );
 		if HasSkillTrainers( HQCamp ) then AddRPGMenuItem( RPM , MSgString( 'ARENA_OpenSchool' ) , 6 );
@@ -1865,7 +1865,7 @@ Function PlayArenaMission( HQCamp: CampaignPtr; SelectionMode: Byte ): Boolean;
 		M: GearPtr;
 	begin
 		{ Create the menu. }
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_SAMMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_SAMMenu );
 		AttachMenuDesc( RPM , ZONE_SAMText );
 
 		{ Add all the missions to the menu. }
@@ -1904,7 +1904,7 @@ Function PlayArenaMission( HQCamp: CampaignPtr; SelectionMode: Byte ): Boolean;
 		{ Step one- select something from the list. This is going to require }
 		{ a menu. }
 		{ Create the menu. }
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_SAMMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_SAMMenu );
 		AttachMenuDesc( RPM , ZONE_SAMText );
 
 		{ Add all the missions to the menu. }
@@ -1946,7 +1946,7 @@ Function PlayArenaMission( HQCamp: CampaignPtr; SelectionMode: Byte ): Boolean;
 		ADR_PilotsAllowed := 5;
 		Repeat
 			{ Create the menu. }
-			ECM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_MemoText );
+			ECM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_MemoText );
 			Mek := HQCamp^.Source^.SubCom;
 			N := 1;
 			while Mek <> Nil do begin
@@ -2163,7 +2163,7 @@ begin
 	end;
 
 	{ Main Menu here }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ArenaInfo );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ArenaInfo );
 	AddRPGMenuItem( RPM , MsgSTring( 'ARENA_ExamineCharacters' ) , 5 );
 	AddRPGMenuItem( RPM , MsgSTring( 'ARENA_ExamineMecha' ) , 1 );
 	AddRPGMenuItem( RPM , MsgSTring( 'ARENA_PurchaseHardware' ) , 2 );
@@ -2220,7 +2220,7 @@ Procedure StartArenaCampaign;
 		Fac: GearPtr;
 		N: Integer;
 	begin
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ArenaInfo );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ArenaInfo );
 		AttachMenuDesc( RPM , ZONE_Dialog );
 		RPM^.mode := RPMNoCancel;
 		Fac := LList;
@@ -2285,7 +2285,7 @@ var
 	F: Text;		{ A File }
 begin
 	{ Create a menu listing all the units in the SaveGame directory. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Title_Screen_Menu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Title_Screen_Menu );
 	BuildFileMenu( RPM , Save_Unit_Base + Default_Search_Pattern );
 
 	{ If any units are found, allow the player to load one. }

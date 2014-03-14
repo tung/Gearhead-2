@@ -280,7 +280,7 @@ begin
 	PCACTIONRD_PC := NPC;
 	PCACTIONRD_GB := GB;
 
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu );
 	if IsSafeArea( GB ) or OnTheMap( GB, NPC ) then AddRPGMenuItem( RPM , MsgString( 'FHQ_LMV_Equip' ) , 1 );
 	AddRPGMenuItem( RPM , MsgString( 'FHQ_LMV_Train' ) , 2 );
 
@@ -340,7 +340,7 @@ begin
 
 	repeat
 		{ Create the menu. }
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 		M := GB^.Meks;
 		N := 1;
 		while M <> Nil do begin
@@ -448,7 +448,7 @@ var
 	MainMenu: RPGMenuPtr;
 	A: Integer;
 begin
-	MainMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_MemoText );
+	MainMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_MemoText );
 	if HasPCommCapability( PC , NAS_EMail ) then AddRPGMenuItem( MainMenu , MsgString( 'MEMO_ReadEMail' ) , m_EMail );
 	if HasPCommCapability( PC , NAS_Memo ) then begin
 		AddRPGMenuItem( MainMenu , MsgString( 'MEMO_ReadMemo' ) , m_Memo );
@@ -566,7 +566,7 @@ var
 	N: Integer;
 begin
 	{ Create and fill the menu. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu );
 	N := NumVisibleGears( GB , X , Y );
 	while N > 0 do begin
 		it := FindVisibleGear( GB , X , Y , N );
@@ -974,7 +974,7 @@ begin
 	if PC = Nil then Exit;
 
 	{ Make the skill menu. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu );
 	AttachMenuDesc( RPM , ZONE_Info );
 	RPM^.DTexColor := InfoGreen;
 
@@ -1086,7 +1086,7 @@ begin
 
 	N := 1;
 	repeat
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu );
 
 		AddRPGMenuItem( RPM , 'Mecha Control: '+ControlTypeName[ControlMethod] , 1 );
 		AddRPGMenuItem( RPM , 'Chara Control: '+ControlTypeName[CharacterMethod] , 5 );
@@ -1196,7 +1196,7 @@ var
 	N: Integer;
 begin
 
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu );
 
 	AddRPGMenuItem( RPM , MsgString( 'PCVIEW_BackPack' ) , 1 );
 	AddRPGMenuItem( RPM , MsgString( 'PCVIEW_Injuries' ) , 3 );
@@ -1425,7 +1425,7 @@ begin
 			{ Note that called shots cannot be made using burst firing. }
 			if CallShot and ( LOOKER_Gear^.SubCom <> Nil ) then begin
 				{ Create a menu, fill it with bits. }
-				WPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+				WPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 				BuildGearMenu( WPM , LOOKER_Gear , GG_Module , False );
 
 				{ If you have target analysis software, can make a }
@@ -1460,7 +1460,7 @@ begin
 
 				if CallShot and ( LOOKER_Gear^.SubCom <> Nil ) then begin
 					{ Create a menu, fill it with bits. }
-					WPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+					WPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 					BuildGearMenu( WPM , LOOKER_Gear , GG_Module , False );
 					{ If you have target analysis software, can make a }
 					{ called shot at movement systems and weapons too! }
@@ -1515,7 +1515,7 @@ begin
 	{ WEAPONS - may be attacked with. Duh. }
 	{ MODULES - Arms enable punching, Legs enable kicking, tails enable tail whipping. }
 	{ AMMO - Missiles with Range=0 in the general inventory may be thrown. }
-	WPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+	WPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 	AttachMenuDesc( WPM , ZONE_Menu1 );
 	WPM^.DTexColor := InfoGreen;
 
@@ -1605,7 +1605,7 @@ begin
 
 	{ Make sure that the player is really serious about this. }
 	DialogMsg( MsgString( 'EJECT_Prompt' ) );
-	RPM := CreateRPGMenu( PlayerBlue , StdWhite , ZONE_Menu2 );
+	RPM := CreateRPGMenu( PlayerBlue , StdWhite , @ZONE_Menu2 );
 	AddRPGMenuItem( RPM , MsgString( 'EJECT_Yes' ) , 1 );
 	AddRPGMenuItem( RPM , MsgString( 'EJECT_No' ) , -1 );
 	SetItemByPosition( RPM , 2 );
@@ -1674,7 +1674,7 @@ var
 	T: Integer;
 begin
 	DialogMSG( MSgString( 'HELP_Prompt' ) );
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu2 );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu2 );
 	AttachMenuDesc( RPM , ZONE_Menu1 );
 
 	for t := 1 to NumMappedKeys do begin
@@ -1729,7 +1729,7 @@ var
 	A: Integer;
 begin
 	DialogMSG( MSgString( 'HELP_Prompt' ) );
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu );
 
 	AddRPGMenuItem( RPM , MsgString( 'HELP_KeyMap' ) , 1 );
 	AddRPGMenuItem( RPM , MsgString( 'HELP_Chara' ) , 2 );
@@ -2043,7 +2043,7 @@ var
 	N: Integer;
 	RPM: RPGMenuPtr;
 begin
-	RPM := CreateRPGMenu( PlayerBlue , StdWhite , ZONE_Menu );
+	RPM := CreateRPGMenu( PlayerBlue , StdWhite , @ZONE_Menu );
 	AddRPGMenuItem( RPM , 'Inventory' , 2 );
 	AddRPGMenuItem( RPM , 'Get Item' , 3 );
 	AddRPGMenuItem( RPM , 'Enter Location' , 4 );
@@ -2080,7 +2080,7 @@ var
 	N: Integer;
 	RPM: RPGMenuPtr;
 begin
-	RPM := CreateRPGMenu( PlayerBlue , StdWhite , ZONE_Menu );
+	RPM := CreateRPGMenu( PlayerBlue , StdWhite , @ZONE_Menu );
 	AddRPGMenuItem( RPM , 'Examine Map' , 1 );
 	AddRPGMenuItem( RPM , 'Mecha Browser' , 3 );
 	AddRPGMenuItem( RPM , 'Return to Main' , -1 );
@@ -2429,7 +2429,7 @@ var
 	RPM: RPGMenuPtr;
 begin
 	{ Create the action menu. }
-	RPM := CreateRPGMenu( PlayerBlue , StdWhite , ZONE_Menu );
+	RPM := CreateRPGMenu( PlayerBlue , StdWhite , @ZONE_Menu );
 
 	{ Add movement options - Cruise, Full, Turn-L, Turn-R }
 	{ - if it's appropriate to do so. Check to make sure }

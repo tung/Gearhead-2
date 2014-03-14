@@ -102,7 +102,7 @@ var
 	N: Integer;
 	SL: NAttPtr;
 begin
-	RPM := CreateRPGMenu( MenuItem, MenuSelect , ZONE_Menu );
+	RPM := CreateRPGMenu( MenuItem, MenuSelect , @ZONE_Menu );
 	AttachMenuDesc( RPM , ZONE_Info );
 	SL := ShoppingList;
 	while SL <> Nil do begin

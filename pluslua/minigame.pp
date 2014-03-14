@@ -78,7 +78,7 @@ var
 	var
 		RPM: RPGMenuPtr;
 	begin
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ConcertMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ConcertMenu );
 		RPM^.Mode := RPMNoCancel;
 		AddRPGMenuItem( RPM , 'Emotion Song' , CMG_Trait_Emotion );
 		AddRPGMenuItem( RPM , 'Beat Song' , CMG_Trait_Beat );
@@ -210,7 +210,7 @@ begin
 
 	{ Show the concert outcome. }
 	T := MGScore;
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ConcertMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ConcertMenu );
 	MG_Menu := RPM;
 	RPM^.Mode := RPMNoCancel;
 	AddRPGMenuItem( RPM , MsgString( 'Exit' ) , 0 );

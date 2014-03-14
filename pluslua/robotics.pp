@@ -193,7 +193,7 @@ begin
 	Robotics_Parts := Nil;
 	Robotics_Instructions := MsgString( 'Robotics_SelectParts_Directions' );
 	repeat
-		Robotics_Menu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+		Robotics_Menu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 
 		Robotics_Info := IngredientsDesc( Robotics_Parts );
 		Robotics_Source := PC^.InvCom;
@@ -311,7 +311,7 @@ begin
 	SkRank := SkillRank( PC , NAS_Science );
 
 	{ Create the menu. Determine which forms the PC can choose from. }
-	Robotics_Menu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+	Robotics_Menu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 	Robotics_Instructions := MsgString( 'Robotics_SelectForm_Directions' );
 
 	N := 1;

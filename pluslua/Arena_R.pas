@@ -79,7 +79,7 @@ begin
 	PC := Nil;
 
 	{ Create a menu listing all the characters in the SaveGame directory. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Title_Screen_Menu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Title_Screen_Menu );
 	BuildFileMenu( RPM , Save_Egg_Base + Default_Search_Pattern );
 
 	if RPM^.NumItem > 0 then begin
@@ -121,7 +121,7 @@ var
 	fname: String;
 	part: GearPtr;
 begin
-	MekMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Title_Screen_Menu );
+	MekMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Title_Screen_Menu );
 	BuildFileMenu( MekMenu , Design_Directory + Default_Search_Pattern );
 	RPMSortAlpha( MekMenu );
 	AddRPGMenuItem( MekMenu , '  Exit' , -1 );
@@ -157,7 +157,7 @@ var
 	fname: String;
 	part: GearPtr;
 begin
-	MekMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Title_Screen_Menu );
+	MekMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Title_Screen_Menu );
 	BuildFileMenu( MekMenu , Series_Directory + Default_Search_Pattern );
 	RPMSortAlpha( MekMenu );
 	AddRPGMenuItem( MekMenu , '  Exit' , -1 );
@@ -190,7 +190,7 @@ var
 
 begin
 	repeat
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Title_Screen_Menu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Title_Screen_Menu );
 		AddRPGMenuItem( RPM , 'Create Character' , 1 );
 		AddRPGMenuItem( RPM , 'Load RPG Campaign' , 2 );
 		AddRPGMenuItem( RPM , 'Start RPG Campaign' , 3 );
