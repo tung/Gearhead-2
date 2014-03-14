@@ -154,7 +154,7 @@ var
 	Mek: GearPtr;
 	msg: String;
 begin
-	TMM := CreateRPGMenu( InfoGreen , InfoHilight , ZONE_Caption );
+	TMM := CreateRPGMenu( InfoGreen , InfoHilight , @ZONE_Caption );
 
 	N := NumVisibleGears( GB , X , Y );
 

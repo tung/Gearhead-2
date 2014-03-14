@@ -322,7 +322,7 @@ begin
 	ClearSkillArray( PCSkills );
 
 	{ Create the menu & set up the display. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 	RPM^.Mode := RPMNoCleanup;
 
 	RCDescMessage := MsgString( 'RANDCHAR_SkillDesc' );
@@ -464,7 +464,7 @@ var
 	RPM: RPGMenuPtr;
 	G: Integer;
 begin
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 
 	AddRPGMenuItem( RPM , MsgString( 'RANDCHAR_SMOp0' ) , 0 );
 	AddRPGMenuItem( RPM , MsgString( 'RANDCHAR_SMOp1' ) , 1 );
@@ -484,7 +484,7 @@ var
 	RPM: RPGMenuPtr;
 	G: Integer;
 begin
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 
 	AddRPGMenuItem( RPM , MsgString( 'GenderName_2' ) , NAV_Male );
 	AddRPGMenuItem( RPM , MsgString( 'GenderName_1' ) , NAV_Female );
@@ -505,7 +505,7 @@ var
 	RPM: RPGMenuPtr;
 	T: Integer;
 begin
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 
 	for t := -4 to 10 do begin
 		AddRPGMenuItem( RPM , BStr( T + 20 ) + ' years old' , T );
@@ -549,7 +549,7 @@ begin
 	end;
 
 	{ Create the menu. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 	AttachMenuDesc( RPM , ZONE_CharGenPrompt );
 
 	RCDescMessage := MsgString( 'RANDCHAR_CityDesc' );
@@ -783,7 +783,7 @@ var
 		SetSAtt( BGGear^.SA , 'DESC <' + desc + '>' );
 	end;
 begin
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 	AddRPGMenuItem( RPM , MsgString( 'RANDCHAR_FHAccept' ) , 1 );
 	AddRPGMenuItem( RPM , MsgString( 'RANDCHAR_FHDecline' ) , -1 );
 
@@ -941,7 +941,7 @@ begin
 	if ForceFac <> Nil then DoExtraFacFilter( LegalJobList );
 
 	if CanEdit then begin
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 		AttachMenuDesc( RPM , ZONE_CharGenPrompt );
 
 		RCPromptMessage := '';
@@ -992,7 +992,7 @@ begin
 
 		if CanEdit and ( LegalFactionList <> Nil ) then begin
 			{ Create the menus. }
-			RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+			RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 			AttachMenuDesc( RPM , ZONE_CharGenPrompt );
 			RCCaption := MsgString( 'RANDCHAR_FactionPrompt' );
 			RCDescMessage := MsgString( 'RANDCHAR_FactionDesc' );
@@ -1071,7 +1071,7 @@ begin
 	end;
 
 	{ Create the menu & set up the display. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 
 	RPM^.Mode := RPMNoCleanup;
 	RCDescMessage := MsgString( 'RANDCHAR_ASPDesc' );
@@ -1155,7 +1155,7 @@ var
 	RPM: RPGMenuPtr;
 	T: Integer;
 begin
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 	AttachMenuDesc( RPM , ZONE_CharGenPrompt );
 
 	{ Add the legal talents. }
@@ -1269,7 +1269,7 @@ begin
 	{ The exact method is gonna depend on whether or not the PC can edit. }
 	if CanEdit then begin
 		{ Allocate the menu. }
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 		AttachMenuDesc( RPM , ZONE_CharGenPrompt );
 		RCCaption := MsgString( 'RANDCHAR_MechaPrompt' );
 		RCDescMessage := MsgString( 'RANDCHAR_MechaDesc' );
@@ -1319,7 +1319,7 @@ Procedure SetTraits( PC: GearPtr );
 		N: Integer;
 	begin
 		{ Create the menu. }
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 		RPM^.Mode := RPMNoCancel;
 
 		{ Add the traits. }
@@ -1384,7 +1384,7 @@ var
 	PList: SAttPtr;
 	P,N: Integer;
 begin
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_CharGenMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_CharGenMenu );
 	AddRPGMenuItem( RPM , MsgString( 'RANDCHAR_NextPicture' ) , 1 );
 	AddRPGMenuItem( RPM , MsgString( 'RANDCHAR_LastPicture' ) , 2 );
 	AddRPGMenuItem( RPM , MsgString( 'RANDCHAR_AcceptPicture' ) , -1 );

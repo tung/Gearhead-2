@@ -431,7 +431,7 @@ var
 	RPM: RPGMenuPtr;
 	fname: String;
 begin
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_Menu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu );
 	if NAttValue( M^.NA , NAG_CharDescription , NAS_Gender ) = NAV_Female then begin
 		BuildFileMenu( RPM , Graphics_Directory + 'cha_f_*.*' );
 	end else begin
@@ -629,7 +629,7 @@ begin
 	{ pick one. }
 	end else if N > 1 then begin
 		DialogMsg( MsgString( 'GET_WHICH_ITEM?' ) );
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_GetItemMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_GetItemMenu );
 		for t := 1 to N do begin
 			AddRPGMenuItem( RPM , GearName( GetVisibleItemAtSpot( GB , X , Y , T ) ) , T );
 		end;
@@ -779,11 +779,11 @@ begin
 	EscMenu := False;
 	repeat
 		{ Create the two menus. }
-		PCMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_EqpMenu );
+		PCMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_EqpMenu );
 		MenuA := PCMenu;
 		SetupMenu( PCMenu , PC );
 
-		TarMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+		TarMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 		MenuB := TarMenu;
 		SetupMenu( TarMenu , Target );
 
@@ -828,7 +828,7 @@ Procedure CreateInvMenu( PC: GearPtr );
 	{ Allocate the Inventory menu and fill it up with the PC's inventory. }
 begin
 	if InvRPM <> Nil then DisposeRPGMenu( InvRPM );
-	InvRPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+	InvRPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 	InvRPM^.Mode := RPMNoCleanup;
 	BuildInventoryMenu( InvRPM , PC , False );
 	RPMSortAlpha( InvRPM );
@@ -845,7 +845,7 @@ Procedure CreateEqpMenu( PC: GearPtr );
 	{ Allocate the equipment menu and fill it up with the PC's gear. }
 begin
 	if EqpRPM <> Nil then DisposeRPGMenu( EqpRPM );
-	EqpRPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_EqpMenu );
+	EqpRPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_EqpMenu );
 	EqpRPM^.Mode := RPMNoCleanup;
 	BuildEquipmentMenu( EqpRPM , PC );
 
@@ -1114,7 +1114,7 @@ var
 	W,L: Integer;
 begin
 	{ Build the slot selection menu. }
-	EI_Menu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+	EI_Menu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 	BuildSlotMenu( EI_Menu , PC , Item );
 	AlphaKeyMenu( EI_Menu );
 	if EI_Menu^.NumItem < 1 then AddRPGMenuItem( EI_Menu , ReplaceHash( MsgString( 'BACKPACK_CantEquip' ) , GearName( Item ) ) , -1 );
@@ -1269,7 +1269,7 @@ begin
 	end;
 
 	{ Build the slot selection menu. }
-	EI_Menu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+	EI_Menu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 	BuildSubMenu( EI_Menu , PC , Item , True );
 	if EI_Menu^.NumItem < 1 then AddRPGMenuItem( EI_Menu , '[cannot install ' + GearName( Item ) + ']' , -1 );
 
@@ -1329,7 +1329,7 @@ var
 	N: Integer;
 begin
 	{ Build the slot selection menu. }
-	IA_Menu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+	IA_Menu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 	BuildSubMenu( IA_Menu , PC , Item , False );
 	if IA_Menu^.NumItem < 1 then AddRPGMenuItem( IA_Menu , '[no weapon for ' + GearName( Item ) + ']' , -1 );
 
@@ -1385,7 +1385,7 @@ begin
 	end;
 
 	{ Build the slot selection menu. }
-	TI_Menu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+	TI_Menu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 	N := 1;
 	M := LList;
 	Team := NAttValue( PC^.NA , NAG_Location , NAS_Team );
@@ -1468,7 +1468,7 @@ begin
 	DialogMsg( ReplaceHash( MsgString( 'FHQ_SP4M_Prompt' ) , FullGearName( Mek ) ) );
 
 	{ Create the menu. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 	BP_ActiveMenu := RPM;
 	M := GB^.Meks;
 	N := 1;
@@ -1519,7 +1519,7 @@ begin
 	end;
 
 	{ Create the menu. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 	BP_ActiveMenu := RPM;
 	M := GB^.Meks;
 	N := 1;
@@ -1575,7 +1575,7 @@ var
 	T: Integer;
 	msg: String;
 begin
-	SkMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+	SkMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 
 	{ Add the usable skills. }
 	for t := 1 to NumSkill do begin
@@ -1670,7 +1670,7 @@ Procedure InstallSoftware( GB: GameBoardPtr; PC , SW: GearPtr );
 		RPM: RPGMenuPtr;
 		N: Integer;
 	begin
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 		BuildGearMenu( RPM , PC , GG_Computer );
 		BP_Source := PC;
 		BP_SeekSibs := False;
@@ -1698,7 +1698,7 @@ Procedure InstallSoftware( GB: GameBoardPtr; PC , SW: GearPtr );
 	begin
 		DialogMsg( ReplaceHash( MsgString( 'BACKPACK_FreeSoftwareSpace' ) , GearName( SW ) ) );
 		repeat
-			RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+			RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 			BP_Source := Compy^.SubCom;
 			BP_SeekSibs := True;
 			BP_ActiveMenu := RPM;
@@ -1828,7 +1828,7 @@ var
 begin
 	N := 0;
 	repeat
-		TIWS_Menu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_InvMenu );
+		TIWS_Menu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_InvMenu );
 
 		if ( Item^.G = GG_Tool ) and ( Item^.S = NAS_Performance ) and ( GB <> Nil ) then AddRPGMenuItem( TIWS_Menu , ReplaceHash( MsgString( 'BACKPACK_UseInstrument' ) , GearName( Item ) ) , -9 );
 		if ( Item^.G = GG_Consumable ) and ( GB <> Nil ) then AddRPGMenuItem( TIWS_Menu , ReplaceHash( MsgString( 'BACKPACK_EatItem' ) , GearName( Item ) ) , -10 );
@@ -2030,7 +2030,7 @@ begin
 	I := 0;
 
 	Repeat
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 		BP_ActiveMenu := RPM;
 		BuildGearMenu( RPM , Mek );
 		if I > 0 then SetItemByPosition( RPM , I );
@@ -2061,7 +2061,7 @@ var
 begin
 	MPB_Redraw := RDP;
 
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 	BuildGearMenu( RPM , Mek );
 	AddRPGMenuItem( RPM , 'Exit Browser' , -1 );
 
@@ -2083,7 +2083,7 @@ var
 begin
 	MPB_Redraw := RDP;
 	BP_Source := Mek;
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 	AddRPGMenuItem( RPM , '????' , -1 );
 	SelectMenu( RPM , @MysteryBrowserRedraw );
 	DisposeRPGMenu( RPM );
@@ -2097,7 +2097,7 @@ var
 	N: Integer;
 begin
 	{ Create the menu. }
-	BrowseMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+	BrowseMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 
 	{ Add each of the gears to the menu. }
 	BuildSiblingMenu( BrowseMenu , List );
@@ -2133,7 +2133,7 @@ var
 	N,Team: Integer;
 begin
 	{ Create the menu. }
-	RPM := CreateRPGMenu( MenuItem, MenuSelect, ZONE_FieldHQMenu );
+	RPM := CreateRPGMenu( MenuItem, MenuSelect, @ZONE_FieldHQMenu );
 	M := LList;
 	N := 1;
 	Team := NAttValue( PC^.NA , NAG_LOcation , NAS_Team );
@@ -2188,7 +2188,7 @@ var
 begin
 	repeat
 		{ Create the FHQ menu. }
-		RPM := CreateRPGMenu( MenuItem, MenuSelect, ZONE_FieldHQMenu );
+		RPM := CreateRPGMenu( MenuItem, MenuSelect, @ZONE_FieldHQMenu );
 		RPM^.Mode := RPMNoCleanup;
 
 		if IsMasterGear( M ) then begin
@@ -2256,7 +2256,7 @@ begin
 	BP_Redraw := @PlainRedraw;
 	BP_SeekSibs := False;
 
-	RPM := CreateRPGMenu( MenuItem, MenuSelect, ZONE_FieldHQMenu );
+	RPM := CreateRPGMenu( MenuItem, MenuSelect, @ZONE_FieldHQMenu );
 	BuildGearMenu( RPM , PC , GG_Usable );
 
 	AlphaKeyMenu( RPM );

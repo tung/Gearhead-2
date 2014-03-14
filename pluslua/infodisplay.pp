@@ -102,7 +102,7 @@ begin
 	SeekAlongTrack( GB^.meks , NumMatches );
 
 	{ Create the menu. }
-	Dex_Menu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_FieldHQMenu );
+	Dex_Menu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_FieldHQMenu );
 	if NumMatches > 0 then begin
 		for t := 0 to ( NumMatches - 1 ) do begin
 			AddRPGMenuItem( Dex_Menu , GearName( Dex_List[ t ].NPC ) , t );

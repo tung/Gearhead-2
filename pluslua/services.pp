@@ -351,7 +351,7 @@ begin
 	LookForAmmo( Weapon^.SubCom );
 
 	{ Step Two: Create the shopping menu. }
-	ShopMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+	ShopMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 	N := 1;
 	Ammo := AmmoList;
 	while Ammo <> Nil do begin
@@ -417,7 +417,7 @@ var
 begin
 	Cost := PurchasePrice( GB , PC , NPC , Part );
 
-	YNMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+	YNMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 	AddRPGMenuItem( YNMenu , 'Buy ' + GearName( Part ) + ' ($' + BStr( Cost ) + ')' , 1 );
 	if ( Part^.SubCom <> Nil ) or ( Part^.InvCom <> Nil ) then AddRPGMenuItem( YNMenu , MsgString( 'SERVICES_BrowseParts' ) , 2 );
 	if ( SeekSubsByG( Part^.SubCom , GG_Ammo ) <> Nil ) and ( Part^.Scale = 0 ) then AddRPGMenuItem( YNMenu , MsgString( 'SERVICES_BuyClips' ) , 3 );
@@ -555,7 +555,7 @@ begin
 	Cost := ( Cost * (20 + ShopRk ) ) div 100;
 	if Cost < 1 then Cost := 1;
 
-	YNMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+	YNMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 	AddRPGMenuItem( YNMenu , 'Sell ' + GearName( Part ) + ' ($' + BStr( Cost ) + ')' , 1 );
 	AddRPGMenuItem( YNMenu , 'Maybe later' , -1 );
 
@@ -1275,7 +1275,7 @@ var
 begin
 
 	{ Create the browsing menu. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 	I := Wares;
 
 	N := 1;
@@ -1357,7 +1357,7 @@ begin
 	MI := 1;
 	repeat
 		{ Create the menu. }
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 		RPM^.Mode := RPMNoCleanup;
 
 		BuildInventoryMenu( RPM , PCInv , True );
@@ -1411,7 +1411,7 @@ begin
 
 	repeat
 		{ Create the menu. }
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 
 		{ Add options, depending on the mek. }
 		if not OnTheMap( GB , Mek ) then AddRPGMenuItem( RPM , MsgString( 'SERVICES_Sell' ) + GearName( Mek ) , 1 );
@@ -1466,7 +1466,7 @@ var
 	msg,msg2: String;
 begin
 	{ Allocate a menu. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 
 	{ Add each mek to the board. }
 	N := 1;
@@ -1580,7 +1580,7 @@ var
 		Cost: LongInt;
 	begin
 		Cost := SkillAdvCost( Nil , NAttValue( NPC^.NA , NAG_Skill , NAS_Medicine ) ) * 2;
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 		AddRPGMenuItem( RPM , MsgString( 'SERVICES_Cyber_Pay_Yes' ) , 1 );
 		AddRPGMenuItem( RPM , MsgString( 'SERVICES_Cyber_Pay_No' ) , -1 );
 
@@ -1606,7 +1606,7 @@ var
 	var
 		SkRoll,Trauma: Integer;
 	begin
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 		AddRPGMenuItem( RPM , MsgString( 'SERVICES_Cyber_WaitPrompt' ) , -1 );
 		ClearCyberSlot( Slot , Item );
 		DelinkGear( Item^.Parent^.InvCom , Item );
@@ -1631,7 +1631,7 @@ var
 		DialogMsg( ReplaceHash( MsgString( 'SERVICES_Cyber_Confirmation' ) , GearName( Item ) ) );
 	end;
 begin
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 	CreateCyberMenu;
 
 	if RPM^.NumItem > 0 then begin
@@ -1643,7 +1643,7 @@ begin
 		if N > 0 then begin
 			Item := LocateGearByIndex( PC , N );
 			if Item <> Nil then begin
-				RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+				RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 				BuildSubMenu( RPM , PC , Item , False );
 				if RPM^.NumItem = 1 then begin
 					Slot := LocateGearByIndex( PC , RPM^.FirstItem^.Value );
@@ -1711,7 +1711,7 @@ begin
 		{ Start by allocating the menu. }
 		{ This menu will use the same dimensions as the interaction }
 		{ menu, since it branches from there. }
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 
 		{ Add the basic options. }
 		if Wares <> Nil then AddRPGMenuItem( RPM , 'Browse Wares' , 0 );
@@ -1838,7 +1838,7 @@ begin
 	Direct_Skill_Learning := True;
 
 	{ Step One: Create the skills menu. }
-	SkillMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+	SkillMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 	AttachMenuDesc( SkillMenu , ZONE_ItemsInfo );
 
 	while Stuff <> '' do begin
@@ -1858,7 +1858,7 @@ begin
 		if ( Skill >= 1 ) and ( Skill <= NumSkill ) then begin
 			{ Create the CostMenu, and see how much the }
 			{ player wants to spend. }
-			CostMenu := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+			CostMenu := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 			Cash := NAttValue( PC^.NA , NAG_Experience , NAS_Credits );
 
 			{ Add menu entries for each of the cost values }
@@ -1990,7 +1990,7 @@ begin
 	SERV_PC := PC;
 
 	repeat
-		RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+		RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 		FillExpressMenu( GB , RPM );
 		RPMSortAlpha( RPM );
 		AlphaKeyMenu( RPM );
@@ -2002,7 +2002,7 @@ begin
 			Mek := LocateGearByIndex( FindWorld( GB , GB^.Scene ) , N );
 			if Mek <> Nil then begin
 				Cost := ScalePrice( GB , PC , NPC , DeliveryCost( Mek ) );
-				RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+				RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 				AddRPGMenuItem( RPM , ReplaceHash( MsgString( 'SERVICES_MoveYes' ) , GearName( Mek ) ) , 1 );
 				AddRPGMenuItem( RPM , MsgString( 'SERVICES_MoveNo' ) ,  -1 );
 
@@ -2101,7 +2101,7 @@ begin
 	{ enemies of the current scene, must be located on the same world, }
 	{ must be within a certain range, and must have "DESTINATION" in their }
 	{ TYPE string attribute. }
-	RPM := CreateRPGMenu( MenuItem , MenuSelect , ZONE_ShopMenu );
+	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_ShopMenu );
 	AttachMenuDesc( RPM , ZONE_ItemsInfo );
 	World := FindWorld( GB , GB^.Scene );
 	City := World^.SubCom;
