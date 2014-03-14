@@ -44,5 +44,3 @@
 	palette_entry_code7  <L>
 	element8 <I>
 	palette_entry_code8  <I>
-
-

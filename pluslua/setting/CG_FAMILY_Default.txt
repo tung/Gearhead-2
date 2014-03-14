@@ -55,7 +55,6 @@ inv
 	Age 25
 end
 
-
 Family 1
 desc <You were raised by your mother, who was a famous %job1%.>
 requires <GENERAL>
@@ -105,5 +104,3 @@ Family 0
 desc <Your parents died in the disaster.>
 requires <DISASTER>
 context <+Bpd +G-->
-
-
