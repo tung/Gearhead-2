@@ -217,7 +217,7 @@ Leg
 	end
 
 end
-
+
 Battroid 4
 Name <Galah>
 SDL_Sprite <btr_trailblazer.png>

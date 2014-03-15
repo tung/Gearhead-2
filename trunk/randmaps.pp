@@ -91,7 +91,8 @@ uses gearutil,ghprop,rpgdice,texutil,gearparser,narration,ui4gh,arenascript,ghch
 {$IFDEF ASCII}
 	vidgfx;
 {$ELSE}
-	sdlgfx;{$ENDIF}
+	sdlgfx;
+{$ENDIF}
 
 var
 	Standard_Param_List: SAttPtr;

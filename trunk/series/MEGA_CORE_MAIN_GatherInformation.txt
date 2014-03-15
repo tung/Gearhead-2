@@ -116,7 +116,7 @@ Content
 		STC CORE-INVISIBLEENCOUNTER
 		name <Mysterious Object>
 	end
-
+
 Content
 	name <They're searching for something.>
 	desc <Your enemy is in town searching for something.>

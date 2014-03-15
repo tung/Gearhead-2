@@ -1137,7 +1137,7 @@ begin
 
 		{ Send MEK to its destination. }
 		PutAwayGear( Camp , Mek , PCForces );
-	end;
+	end;
 
 	DelinkJJang := PCForces;
 end;

@@ -288,7 +288,8 @@ Choice 13
 	Choice <StoryNote %id%01 &SetEpisodeScene %1%>
 
 	Msg%id%01 <You decided to seek money in %name1%.>
-Choice 14
+
+Choice 14
 	name <Reward 4: Seek Equipment 1>
 	desc <Take this option to earn immediate benefits for the PC.>
 	desig <R_EQP>
@@ -303,7 +304,8 @@ Choice 13
 	Choice <StoryNote %id%01 &SetEpisodeScene %1%>
 
 	Msg%id%01 <You decided to upgrade your equipment in %name1%.>
-Choice 15
+
+Choice 15
 	name <Reward 5: Seek Lancemate 1>
 	desc <Take this option to earn immediate benefits for the PC.>
 	desig <R_LAN>
@@ -367,7 +369,8 @@ Choice 18
 	Choice <StoryNote %id%01 &SetEpisodeScene %1%>
 
 	Msg%id%01 <You decided to seek money in %name1%.>
-Choice 19
+
+Choice 19
 	name <Reward 9: Seek Equipment 2>
 	desc <Take this option to earn immediate benefits for the PC.>
 	desig <R_EQP>
@@ -382,7 +385,8 @@ Choice 18
 	Choice <StoryNote %id%01 &SetEpisodeScene %1%>
 
 	Msg%id%01 <You decided to upgrade your equipment in %name1%.>
-Choice 20
+
+Choice 20
 	name <Reward 10: Seek Lancemate 2>
 	desc <Take this option to earn immediate benefits for the PC.>
 	desig <R_LAN>

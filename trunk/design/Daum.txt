@@ -161,7 +161,7 @@ Leg
 	end
 end
 
-Battroid 5
+Battroid 5
 Name <Daum>
 Desig <SAN-D1h HW>
 SDL_Sprite <btr_daum.png>

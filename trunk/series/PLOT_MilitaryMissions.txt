@@ -12,7 +12,8 @@ Plot
 	% E1 is the town itself
 	% E2 is a military faction allied with the city
 	% E3 is a member of that faction
-	% E4 is a scene where the encounter will take place	Element1 <Scene Town>
+	% E4 is a scene where the encounter will take place
+	Element1 <Scene Town>
 	Element2 <Faction Military !Ally 1>
 	Element3 <Character !Comrade 2 RECHARGED>
 	Element4 <Scene Outdoors>

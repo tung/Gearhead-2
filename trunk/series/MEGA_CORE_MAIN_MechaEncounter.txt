@@ -1088,7 +1088,6 @@ Content
 	end
 
 
-
 
 Content
 	name <Edie Brickell Never Hurt Anyone>
@@ -1960,7 +1959,7 @@ Content
 	inv
 		NPC Pirate
 	end
-
+
 Content
 	name <You Haven't Won Yet>
 	desc <PC waels on Enemy's henchmen, Enemy shows up immediately to wael on PC.>
