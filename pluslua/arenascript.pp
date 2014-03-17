@@ -231,6 +231,8 @@ Function RevealRumors( GB: GameBoardPtr; NPC: GearPtr; SkRoll: Integer; var Rumo
 	{ Reveal some rumors! Call the CreateRumorList procedure with a standard reveal. }
 begin
 {	RevealRumors := CreateRumorList( GB, NPC, SkRoll, TRUE, Rumor_Error, ReplaceHash( MsgString( '#SaidThat' ) , PilotName( NPC ) ), 'RUMOR' );}
+	{ TODO }
+	RevealRumors := Nil;
 end;
 
 Function ReviewRumorMemos( GB: GameBoardPtr ): SAttPtr;
@@ -239,6 +241,8 @@ var
 	Rumor_Error: Boolean;	{ A dummy variable. }
 begin
 {	ReviewRumorMemos := CreateRumorList( GB, Nil, 0, FALSE, Rumor_Error, '', 'RUMEMO' );}
+	{ TODO }
+	ReviewRumorMemos := Nil;
 end;
 
 Procedure BrowseMemoType( GB: GameBoardPtr; Tag: String );
