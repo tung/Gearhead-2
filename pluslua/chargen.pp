@@ -1024,6 +1024,8 @@ begin
 
 		end else if NeedsFaction( Job ) or ( Random( 3 ) = 1 ) then begin
 			F := SelectRandomGear( LegalFactionList );
+		end else begin
+			F := Nil;
 		end;
 
 		{ Apply the bonuses for this faction. }
