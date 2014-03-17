@@ -1200,7 +1200,6 @@ var
 		F: GearPtr;	{ The persona fragment to insert. }
 		info,TypeLabel,msg: String;
 		Dic: SATTPtr;
-		Param: Array [1..8] of String;
 		T: Integer;
 	begin
 		info := SAttValue( ProtoNode^.SA , 'REQUEST' );
@@ -1757,7 +1756,7 @@ begin
 		ReplaceStrings( Mood , Dictionary );
 		DisposeSAtt( Dictionary );
 
-		{ Run the mood's initialization code. }
+		{ TODO: Run the mood's initialization code. }
 {		Trigger := 'UPDATE';
 		TriggerGearScript( GB , Mood , Trigger );
 }	end;
@@ -1931,7 +1930,6 @@ var
 		{ the adventure. }
 	var
 		plot_cmd: String;
-		N: Integer;
 	begin
 		{ Determine the plot type being requested. If no explicit request is found, }
 		{ go with a *GENERAL plot. }

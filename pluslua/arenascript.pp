@@ -1006,7 +1006,7 @@ var
 	Rumor_Error: Boolean;
 	RPM: RPGMenuPtr;
 begin
-
+	{ TODO }
 end;
 
 
@@ -1224,7 +1224,6 @@ Procedure HandleInteract( GB: GameBoardPtr; PC,NPC,Persona: GearPtr );
 		PNodeTrigger := 'node_' + BStr( PNode );
 	end;
 var
-	IntScr: String;		{ Interaction Script }
 	N,FreeRumors: Integer;
 	RTT: LongInt;		{ ReTalk Time }
 	T: String;
@@ -1921,7 +1920,6 @@ end;
 		{ Record an error if the gear is not found. }
 	var
 		MyGear: GearPtr;
-		S: String;
 	begin
 		MyGear := GetLuaGear( AS_GB ,MyLua , 1 );
 
@@ -2339,7 +2337,6 @@ end;
 		{ Find the PC. Return it to Lua. }
 	var
 		PC: GearPtr;
-		Renown: Integer;
 	begin
 		PC := LocatePilot( LocatePC( AS_GB ) );
 		if PC <> Nil then begin

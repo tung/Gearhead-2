@@ -935,7 +935,6 @@ end;
 function LocateSprite( const Name: String; W,H: Integer ): SensibleSpritePtr;
 	{ Find the requested sprite, either in memory or from disk. }
 var
-	S: SensibleSpritePtr;
 	i: Integer;
 	n, c: String;
 begin

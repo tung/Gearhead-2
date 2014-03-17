@@ -1178,7 +1178,7 @@ end;
 Function TeamHasSkill( GB: GameBoardPtr; Team,Skill: Integer): Boolean;
 	{ Return TRUE if at least one member of the team has the requested skill. }
 var
-	M,P: GearPtr;
+	M: GearPtr;
 	Found: Boolean;
 	T2: Integer;
 begin

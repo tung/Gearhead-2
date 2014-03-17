@@ -745,7 +745,6 @@ var
 		var
 			XYFTerr: Integer;
 			FoundFloor: Boolean;
-			MiniMap: String;
 		begin
 			{ The entrance must start at a wall; I don't want }
 			{ any double doors on the same tile. }
@@ -2594,7 +2593,6 @@ Function AddContent( CType: String; GB: GameboardPtr; Zone: GearPtr; P: String; 
 var
 	AllOK: Boolean;
 	C: GearPtr;
-	ContentID: LongInt;
 begin
 	{ Call the scene content creator. }
 	C := CreateSceneContent( GB , Nil , CType , NAttValue( GB^.Scene^.NA , NAG_Narrative , NAS_DifficultyLevel ) , False );

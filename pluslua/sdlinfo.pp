@@ -208,7 +208,6 @@ var
 	X0: LongInt;	{ Midpoint of the info display. }
 	N: Integer;	{ Module number on the current line. }
 	MyDest: TSDL_Rect;
-	MM,A,B: Integer;
 	MD: GearPtr;
 
 	Function PartStructImage( GS, CuD, MxD: Integer ): Integer;
@@ -265,7 +264,7 @@ var
 		{ Add parts to the status diagram whose gear S value }
 		{ is equal to the provided number. }
 	var
-		CuD,MxD,Armor,Structure: Integer;	{ Armor & Structural damage values. }
+		CuD,MxD: Integer;	{ Armor & Structural damage values. }
 	begin
 		MD := Mek^.SubCom;
 		while ( MD <> Nil ) do begin
@@ -429,7 +428,7 @@ const
 var
 	CurP,MaxP: Integer;
 	msg: String;
-	T,X,S: Integer;
+	T,S: Integer;
 	C: TSDL_Color;
 begin
 	CDest.Y := CZone.Y + TTF_FontLineSkip( Game_Font ) + 65;
@@ -470,7 +469,6 @@ Procedure MechaMVTRSE( M: GearPtr );
 const
 	GutterWidth = 20;
 var
-	CurP,MaxP: Integer;
 	msg: String;
 	MyDest: TSDL_Rect;
 begin
@@ -496,8 +494,6 @@ end;
 Procedure DisplayModelStatus( GB: GameBoardPtr; M: GearPtr; MyDest: TSDL_Rect );
 	{ Display the model status in a window near the mouse. }
 var
-	Box,Box2: TSDL_Rect;
-	HP,HPD: Integer;
 	name: String;
 begin
 	InfoBox( MyDest );
@@ -715,7 +711,7 @@ end;
 Procedure CharacterDisplay( PC: GearPtr; GB: GameBoardPtr );
 	{ Display the important stats for this PC in the map zone. }
 var
-	msg,job: String;
+	msg: String;
 	T,R,FID: Integer;
 	S: LongInt;
 	C: TSDL_Color;
@@ -1245,9 +1241,8 @@ Procedure PersonadexInfo( NPC,HomeTown: GearPtr; Z: TSDL_Rect );
 		{ Display some brief stats on this character. }
 		{ This is the information to the right of the gear's portrait. }
 	var
-		T,X0,X1,S: Integer;
+		X0,X1: Integer;
 		MyDest: TSDL_Rect;
-		C: TSDL_Color;
 		Procedure PStat_NextLine;
 		begin
 			MyDest.Y := MyDest.Y + TTF_FontLineSkip( Game_Font );

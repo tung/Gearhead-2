@@ -1285,7 +1285,7 @@ const
 	);
 var
 	HM,Target,T: Integer;
-	NPC,TGear,Tool: GearPtr;
+	NPC,TGear: GearPtr;
 	CORD: Integer;	{ Continuous Orders }
 begin
 	{ See if there are any pending actions. }

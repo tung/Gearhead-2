@@ -2304,8 +2304,6 @@ var
 		{ Apply the funky thing to the attack request; reduce the total number }
 		{ of technique points; store a noun and an adjective to describe this }
 		{ attack. }
-	var
-		trait: Integer;
 	begin
 		TP := TP - FT_Cost[ N ];
 		AtAt := AtAt + ' ' + FT_AA[ N ];

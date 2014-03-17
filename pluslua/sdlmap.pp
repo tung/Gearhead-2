@@ -189,8 +189,6 @@ end;
 
 Procedure ClearCMCelLayer( L: Integer );
 	{ Clear sprite descriptions from the provided overlay layer. }
-var
-	X,Y,Z: Integer;
 begin
 	FillChar( CM_Cel_IsOn[ L ] , SizeOf( CM_Cel_IsOn[ L ] ) , False );
 end;
@@ -722,10 +720,9 @@ const
 		end;
 	end;
 var
-	VX,VY,VX_Max,VY_Max,X,Y,Z,T,Row,Column,Terr,Quad: Integer;
+	VX,VY,VX_Max,VY_Max,X,Y,Z,T,Terr,Quad: Integer;
 	M: GearPtr;
 	MyDest,TexDest: TSDL_Rect;
-	Spr: SensibleSpritePtr;
 begin
 	{ Clear the OFF_MAP_MODELS. }
 	{ NOTE: X and Y do not refer to X and Y!!! Coordinates, that is... }
@@ -961,8 +958,7 @@ Procedure RenderMap( GB: GameBoardPtr );
 	{ about this method but I don't remember what, and it seems to be more efficient than searching }
 	{ through the list of models once per tile once per elevation level. }
 var
-	X,Y,Z: Integer;
-	M: GearPtr;
+	X: Integer;
 begin
 	{ How to find out the proper mouse location- while drawing each sprite, do a check with the }
 	{ map coordinates. If we get a second match later on, that supercedes the previous match obviously, }

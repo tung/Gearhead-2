@@ -242,7 +242,7 @@ function SkillValue( Master: GearPtr; Skill,Stat: Integer ): Integer;
 	end;
 
 var
-	C,Tool: GearPtr;	{Ptr to the controling character / skill bank.}
+	C: GearPtr;	{Ptr to the controling character / skill bank.}
 	SkRk,StRk: Integer;	{Skill Rank, Stat Rank. }
 	SkMod,Morale: Integer;		{Skill Roll Modifier. }
 	it: Integer;

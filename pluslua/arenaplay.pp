@@ -1046,7 +1046,7 @@ end;
 Procedure NormalizeSubscenePosition( GB: GameBoardPtr; Mek: GearPtr );
 	{ Set MEK's position within its subscene. }
 var
-	WSSW,X,Y: Integer;
+	WSSW: Integer;
 begin
 	WSSW := WorldSubSceneWidth( GB^.Scene^.Parent );
 	if WSSW > 0 then begin

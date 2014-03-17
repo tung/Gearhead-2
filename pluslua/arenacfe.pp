@@ -139,9 +139,6 @@ Procedure BeginTurn( GB: GameBoardPtr; M: GearPtr );
 const
 	Scroll_Step = 0.3;
 var
-{$IFNDEF ASCII}
-	P: Point;
-{$ENDIF}
 	A: Char;
 	msg: String;
 begin
@@ -479,12 +476,10 @@ const
 var
 	TT: Integer;	{ Total Trauma }
 	SC: GearPtr;	{ Sub-Components of PC; looking for cyberware. }
-	N: Integer;	{ Number of implants. }
 	D: Integer;	{ Disfunction # }
 begin
 	{ To start with, add up all the trauma points the PC has. }
 	TT := 0;
-	N := 0;
 	SC := PC^.SubCom;
 	while SC <> Nil do begin
 		if ( SC^.G = GG_Modifier ) and ( SC^.V = GV_CharaModifier ) then begin

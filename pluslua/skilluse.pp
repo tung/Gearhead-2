@@ -275,7 +275,7 @@ Function CanRepairUsingSkill( NPC,Target: GearPtr; Skill: Integer ): Boolean;
 	{ and the NPC has the required repair fuel. Return FALSE otherwise. }
 var
 	CanRepair: Boolean;
-	T,Total,RP: Longint;
+	T,RP: Longint;
 begin
 	CanRepair := False;
 	for t := 0 to NumMaterial do begin
