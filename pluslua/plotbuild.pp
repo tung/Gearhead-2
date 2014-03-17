@@ -1878,7 +1878,8 @@ begin
 		end;
 	end;
 
-	{ Attempt the plot insertion. }
+	{ TODO: Attempt the plot insertion. }
+	it := False;
 {	it := InsertPlot( Source , Source , Mission , Nil , ThreatAtGeneration );
 }
 	{ If the mission was successfully added, we need to do extra initialization. }

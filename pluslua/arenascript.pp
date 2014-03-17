@@ -1350,6 +1350,7 @@ begin
 			if CID <> 0 then begin
 				{ Everything should be okay to talk... Now see if the NPC wants to. }
 				{ Determine the NPC's RETALK and REACT values. }
+				ReTalk := 0; { TODO }
 				React := ReactionScore( GB^.Scene , PC , NPC );
 
 				Persona := SeekPersona( GB , CID );
