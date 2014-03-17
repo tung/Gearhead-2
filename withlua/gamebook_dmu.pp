@@ -782,7 +782,7 @@ Var
 	Context_Tags: SAttPtr;
 
 
-Function NewGameboard( Camp: CampaignPtr; ID: Integer; XMax,YMax: Byte ): GameBoardPtr;Function FindGameBoard( Camp: CampaignPtr; ID: Integer ): GameBoardPtr;
+Function NewGameboard( Camp: CampaignPtr; ID: Integer; XMax,YMax: Byte ): GameBoardPtr;Function FindGameBoard( Camp: CampaignPtr; ID: Integer ): GameBoardPtr;
 Function NewCampaign: CampaignPtr;
 Procedure DisposeCampaign( Camp: CampaignPtr );
 

@@ -1042,7 +1042,7 @@ begin
 	InfoBox( ZONE_Title_Screen_Top );
 	InfoBox( ZONE_Title_Screen_Menu );
 	CMessage( 'GearHead II' , ZONE_Title_Screen_Title , StdWhite );
-end;
+end;
 
 
 initialization

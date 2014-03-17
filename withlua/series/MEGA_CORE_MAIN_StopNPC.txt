@@ -1087,7 +1087,7 @@ Content
 		CMsg%id%02_11 <ifFactionExists &EnemyFac ifNPCHeroic Accept>
 		Msg%id%02_12 <Yeah, I'm the god of death from \FACTION &EnemyFac and I'm gonna destroy this entire place! Man, this is way better than the simulator!>
 		CMsg%id%02_12 <ifFactionExists &EnemyFac ifNPCVillainous Accept>
-		Prompt%id%01 <A f‏irst timer, huh? This'll be easy...>
+		Prompt%id%01 <A first timer, huh? This'll be easy...>
 		Prompt%id%01_1 <Get out of here before I hurt you, newb.>
 		Prompt%id%01_2 <I take it that you're new at this...>
 	end

@@ -37,7 +37,7 @@ Content
 	% E1 is the outdoors scene where the encounter is
 	% E2 is the ship's exterior metascene
 	% E3 is the faction controlling the ship
-	% E4 is the ship's inte‭rior metascene
+	% E4 is the ship's interior metascene
 	% E5 is the ship's captain
 	Element4 <Prefab>
 	Place4 <1>
@@ -45,7 +45,7 @@ Content
 	NeverFail5 <Captain>
 	Place5 <4 (Guards)>
 
-	% P%id%01 = Initializat‭ion Counter
+	% P%id%01 = Initialization Counter
 	% P%id%02 = Have gained peaceful entry
 
 	update <if= P%id%01 0  P= %id%01 1  SetPlotStatus %plotid1% %id1%  NPCLevel %5% StoryDL>

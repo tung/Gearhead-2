@@ -168,7 +168,8 @@ Leg
 	end
 
 end
-Battroid 4
+
+Battroid 4
 Name <Eggman>
 SDL_Sprite <>
 SDL_Portrait <>

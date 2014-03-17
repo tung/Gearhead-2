@@ -229,7 +229,7 @@ Content
 		Msg%id%02 <Nice to meet you, \PC . I'll do my best to help you out.>
 		Msg%id%03 <Try to keep \OPR %3% from getting killed, okay? Thanks again for your help.>
 		Msg%id%04 <%name1%'s friend %name3% joined your lance.>
-		Msg%id%05 <Well if you ever have need of \OPR %3% , %name3% will be waiting at %name2%. Thanks aga‌in for your help.>
+		Msg%id%05 <Well if you ever have need of \OPR %3% , %name3% will be waiting at %name2%. Thanks again for your help.>
 		Msg%id%06 <%name3% at %name2% offered to join your lance.>
 		Prompt%id%01 <Alright, I could use an extra hand.>
 		Prompt%id%02 <Sorry, I have everyone I need right now.>
