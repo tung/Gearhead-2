@@ -1034,9 +1034,9 @@ begin
 	{ Next add the story, quest, and parent plot contexts. }
 	if ( Control <> Nil ) and ( ( Control^.G = GG_Story ) or ( Control^.G = GG_CityMood ) ) then begin
 		Context := Context + ' ' + StoryContext( GB , Control );
-	end else begin
-
 	end;
+
+	PlotGenContext := Context;
 end;
 
 Function AddSubPlot( GB: GameBoardPtr; Scope,Control,Slot,Plot0: GearPtr; SPReq: String; LayerID,SubPlotSlot,Threat: LongInt; IsAQuest,DoDebug: Boolean ): GearPtr;
