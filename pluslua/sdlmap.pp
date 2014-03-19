@@ -1011,9 +1011,11 @@ begin
 
 	for x := 1 to GB^.MAP_Width do begin
 		for y := 1 to GB^.MAP_Height do begin
-			MyDest.X := ZONE_MiniMap.X - 3 + X*3;
-			MyDest.Y := ZONE_MiniMap.Y - 3 + Y*3;
-			DrawSprite( Mini_Map_Sprite , MyDest , TileTerrain( GB , X , Y ) + 10 );
+			if TileVisible( GB , X , Y ) then begin
+				MyDest.X := ZONE_MiniMap.X - 3 + X*3;
+				MyDest.Y := ZONE_MiniMap.Y - 3 + Y*3;
+				DrawSprite( Mini_Map_Sprite , MyDest , TileTerrain( GB , X , Y ) + 10 );
+			end;
 		end;
 	end;
 
