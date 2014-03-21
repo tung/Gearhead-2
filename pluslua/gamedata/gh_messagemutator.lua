@@ -311,16 +311,46 @@ function mutate_message( in_text , target_length , mm_context )
 	-- Start with a period in the table, since this represents the start of
 	-- a new sentence.
 	local out_text = { '.' }
-	local all_words = {}
+	local out_text_spaces = { '' }
+	local out_text_final = {}
 	local total_length = string.len( in_text )
 
+	-- Split up words and punctuation and track the spaces that precede them.
+	local function breakdown( str )
+		local tokens = {}
+		local pre_spaces = {}
+		local last_spaces = ''
+		local i = 1
+		while i <= string.len( str ) do
+			local c = string.sub( str , i , i )
+			if string.find( c , "%s" ) then
+				last_spaces = string.match( str , "%s+" , i )
+				i = i + string.len( last_spaces )
+			elseif string.find( c , "[%w'%%\\]" ) then
+				local word = string.match( str , "[%w'%%\\]+" , i )
+				table.insert( tokens , word )
+				table.insert( pre_spaces , last_spaces )
+				last_spaces = ''
+				i = i + string.len( word )
+			elseif string.find( c , "%p" ) then
+				local punc = string.match( str , "%p+" , i )
+				table.insert( tokens , punc )
+				table.insert( pre_spaces , last_spaces )
+				last_spaces = ''
+				i = i +  string.len( punc )
+			else
+				i = i + 1
+			end
+		end
 
-	for w,p in string.gmatch( in_text , "([%w'%%\\]+)(%p*)" ) do
-		table.insert( all_words , w )
-		if p ~= '' then table.insert( all_words , p ) end
+		return tokens, pre_spaces
 	end
 
+	-- Break up the input to make finding mutations easier.
+	local all_words,all_words_spaces = breakdown( in_text )
+
 	for word_index,w in ipairs( all_words ) do
+		table.insert( out_text_spaces, all_words_spaces[ word_index ] )
 		table.insert( out_text , w )
 
 		-- For the last X words in the table, see if we can find a match.
@@ -346,27 +376,43 @@ function mutate_message( in_text , target_length , mm_context )
 							local first_char_upper = ( first_char == string.upper( first_char ) )
 
 							total_length = total_length + string.len( MyVal.msg ) - string.len( MyKey ) + 1
+
+							-- Out with the old...
 							for tt = 1,t do
+								if tt ~= 1 then
+									-- Keep the spacing of the first word of the original phrase.
+									table.remove( out_text_spaces )
+								end
 								table.remove( out_text )
 							end
-							for w2,p2 in string.gmatch( MyVal.msg , "([%w'%%\\%.]+)(%p*)" ) do
+
+							-- ... and in with the new!
+							local subst,subst_spaces = breakdown( MyVal.msg )
+							for subst_index,subst_token in ipairs( subst ) do
+								if subst_index ~= 1 then
+									-- Don't include first spacing: it's already kept above.
+									table.insert( out_text_spaces , subst_spaces[ subst_index ] )
+								end
 								if first_char_upper then
 									-- Uppercase the first char of the first word only.
-									table.insert( out_text , string.upper( string.sub( w2 , 1 , 1 ) ) .. string.sub( w2 , 2 ) )
+									table.insert( out_text , string.upper( string.sub( subst_token , 1 , 1 ) ) .. string.sub( subst_token , 2 ) )
 									first_char_upper = false
 								else
-									table.insert( out_text , w2 )
+									table.insert( out_text , subst_token )
 								end
-								if p2 ~= '' then table.insert( out_text , p2 ) end
 							end
-							break;
+							break
 						end
 					end
 				end
 			end
 		end
 	end
-	return( table.concat( out_text , ' ' , 2 ) )
+
+	for i = 2, #out_text do
+		table.insert( out_text_final , out_text_spaces[ i ] )
+		table.insert( out_text_final , out_text[ i ] )
+	end
+
+	return table.concat(out_text_final)
 end
-
-
