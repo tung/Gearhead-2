@@ -341,12 +341,22 @@ function mutate_message( in_text , target_length , mm_context )
 						local MyChoice = math.random( #list_of_options + 1 )
 						local MyVal = list_of_options[ MyChoice ]
 						if ( MyVal ~= nil ) and ( ( total_length + string.len( MyVal.msg ) - string.len( MyKey ) ) <= target_length ) then
+							-- Uppercase mid-sentence phrases that happen to match the beginning of a sentence.
+							local first_char = string.sub( out_text[ #out_text - t + 1 ], 1, 1 )
+							local first_char_upper = ( first_char == string.upper( first_char ) )
+
 							total_length = total_length + string.len( MyVal.msg ) - string.len( MyKey ) + 1
 							for tt = 1,t do
 								table.remove( out_text )
 							end
 							for w2,p2 in string.gmatch( MyVal.msg , "([%w'%%\\%.]+)(%p*)" ) do
-								table.insert( out_text , w2 )
+								if first_char_upper then
+									-- Uppercase the first char of the first word only.
+									table.insert( out_text , string.upper( string.sub( w2 , 1 , 1 ) ) .. string.sub( w2 , 2 ) )
+									first_char_upper = false
+								else
+									table.insert( out_text , w2 )
+								end
 								if p2 ~= '' then table.insert( out_text , p2 ) end
 							end
 							break;
