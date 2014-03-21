@@ -315,7 +315,7 @@ function mutate_message( in_text , target_length , mm_context )
 	local total_length = string.len( in_text )
 
 
-	for w,p in string.gfind( in_text , "([%w'%%\\]+)(%p*)" ) do
+	for w,p in string.gmatch( in_text , "([%w'%%\\]+)(%p*)" ) do
 		table.insert( all_words , w )
 		if p ~= '' then table.insert( all_words , p ) end
 	end
@@ -325,8 +325,8 @@ function mutate_message( in_text , target_length , mm_context )
 
 		-- For the last X words in the table, see if we can find a match.
 		for t = 1, 5 do
-			if ( table.getn( out_text ) >= t ) then
-				local MyKey = string.lower( table.concat( out_text , ' ' , table.getn( out_text ) - t + 1 ) )
+			if ( #out_text >= t ) then
+				local MyKey = string.lower( table.concat( out_text , ' ' , #out_text - t + 1 ) )
 				local MyDict = gh_dict[ MyKey ]
 				if MyDict ~= nil then
 					local list_of_options = {}
@@ -337,15 +337,15 @@ function mutate_message( in_text , target_length , mm_context )
 						end
 					end
 
-					if table.getn( list_of_options ) > 0 then
-						local MyChoice = math.random( table.getn( list_of_options ) + 1 )
+					if #list_of_options > 0 then
+						local MyChoice = math.random( #list_of_options + 1 )
 						local MyVal = list_of_options[ MyChoice ]
 						if ( MyVal ~= nil ) and ( ( total_length + string.len( MyVal.msg ) - string.len( MyKey ) ) <= target_length ) then
 							total_length = total_length + string.len( MyVal.msg ) - string.len( MyKey ) + 1
 							for tt = 1,t do
 								table.remove( out_text )
 							end
-							for w2,p2 in string.gfind( MyVal.msg , "([%w'%%\\%.]+)(%p*)" ) do
+							for w2,p2 in string.gmatch( MyVal.msg , "([%w'%%\\%.]+)(%p*)" ) do
 								table.insert( out_text , w2 )
 								if p2 ~= '' then table.insert( out_text , p2 ) end
 							end
