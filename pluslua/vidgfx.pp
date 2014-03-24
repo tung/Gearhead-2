@@ -35,7 +35,7 @@ Type
 		X_Anchor,X_Justify,W: Integer;
 		Y_Anchor,Y_Justify,H: Integer;
 	end;
-
+	vgfx_zone_ptr = ^vgfx_zone;
 
 	RedrawProcedureType = Procedure;
 

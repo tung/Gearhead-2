@@ -73,7 +73,7 @@ Procedure ClearMenu( RPM: RPGMenuPtr );
 Procedure RemoveRPGMenuItem(RPM: RPGMenuPtr; var LMember: RPGMenuItemPtr);
 
 Procedure AddRPGMenuKey(RPM: RPGMenuPtr; k: Char; value: Integer);
-Function CreateRPGMenu(icolor,scolor: Byte; Z: vgfx_zone): RPGMenuPtr;
+Function CreateRPGMenu(icolor,scolor: Byte; Z: vgfx_zone_ptr): RPGMenuPtr;
 Procedure AttachMenuDesc( RPM: RPGMenuPtr; Z: vgfx_zone );
 
 Procedure DisposeRPGMenu(var RPM: RPGMenuPtr);
@@ -236,7 +236,7 @@ begin
 	RPM^.FirstKey := it;
 end;
 
-Function CreateRPGMenu(icolor,scolor: Byte; Z: vgfx_zone): RPGMenuPtr;
+Function CreateRPGMenu(icolor,scolor: Byte; Z: vgfx_zone_ptr): RPGMenuPtr;
 	{This function creates a new RPGMenu record, and returns the address.}
 var
 	it: ^RPGMenu;			{Here's a pointer for the menu we're making.}
@@ -250,7 +250,7 @@ begin
 	{Initialize the elements of the record.}
 	it^.itemcolor := icolor;
 	it^.selcolor := scolor;
-	it^.Menu_Zone := ZoneToRect( Z );
+	it^.Menu_Zone := ZoneToRect( Z^ );
 	it^.Desc_Zone.W := 0; {A width value of 0 means there is no desc window.}
 	it^.Mode := RPMNormal;
 	it^.FirstItem := Nil;
