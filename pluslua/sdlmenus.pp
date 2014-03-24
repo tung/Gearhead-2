@@ -546,8 +546,18 @@ begin
 		{Certain keys need processing- if so, process them.}
 		case getit of
 			{Selection Movement Keys}
-			RPK_Up: RPMUpKey( RPM , True );
-			RPK_Down: RPMDownKey( RPM , True );
+			RPK_Up: begin
+					RPMUpKey( RPM , True );
+					{ Override mouse pointer selection. }
+					OldMouseX := Mouse_X;
+					OldMouseY := Mouse_Y;
+				end;
+			RPK_Down: begin
+					RPMDownKey( RPM , True );
+					{ Ditto the above. }
+					OldMouseX := Mouse_X;
+					OldMouseY := Mouse_Y;
+				end;
 			RPK_TimeEvent:
 				{ If the mouse pointer is around }
 				{ the menu, we may have to do something. }
