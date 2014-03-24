@@ -557,8 +557,8 @@ begin
 	WaitAMinute( GB , PC , ReactionTime( PC ) );
 end;
 
-Function SelectOneVisibleGear( GB: GameBoardPtr; X,Y: Integer ): GearPtr;
-	{ Create a menu, then select one of the visible gears }
+Function SelectOneVisibleUsableGear( GB: GameBoardPtr; X,Y: Integer; const Trigger: String ): GearPtr;
+	{ Create a menu, then select one of the visible, usable gears }
 	{ from tile X,Y. }
 var
 	RPM: RPGMenuPtr;
@@ -567,9 +567,9 @@ var
 begin
 	{ Create and fill the menu. }
 	RPM := CreateRPGMenu( MenuItem , MenuSelect , @ZONE_Menu );
-	N := NumVisibleGears( GB , X , Y );
+	N := NumVisibleUsableGearsXY( GB , X , Y , Trigger );
 	while N > 0 do begin
-		it := FindVisibleGear( GB , X , Y , N );
+		it := FindVisibleUsableGearXY( GB , X , Y , N , Trigger );
 		AddRPGMenuItem( RPM , GearName( it ) , N );
 		Dec( N );
 	end;
@@ -580,9 +580,9 @@ begin
 	DisposeRPGMenu( RPM );
 
 	if N > 0 then begin
-		SelectOneVisibleGear := FindVisibleGear( GB , X , Y , N );
+		SelectOneVisibleUsableGear := FindVisibleUsableGearXY( GB , X , Y , N , Trigger );
 	end else begin
-		SelectOneVisibleGear := Nil;
+		SelectOneVisibleUsableGear := Nil;
 	end;
 end;
 
@@ -595,14 +595,14 @@ var
 	Prop: GearPtr;
 begin
 	{ First count how many usable items there are at the spot. }
-	N := NumVisibleGears( GB , X , Y );
+	N := NumVisibleUsableGearsXY( GB , X , Y , Trigger );
 
 	{ Next, choose the item which is to be used. }
 	if N > 0 then begin
 		if N = 1 then begin
-			Prop := FindVisibleGear( GB , X , Y , 1 );
+			Prop := FindVisibleUsableGearXY( GB , X , Y , 1 , Trigger );
 		end else begin
-			Prop := SelectOneVisibleGear( GB , X , Y );
+			Prop := SelectOneVisibleUsableGear( GB , X , Y , Trigger );
 		end;
 
 		if ( Prop <> Nil ) then begin
@@ -627,7 +627,7 @@ begin
 	PropD := -1;
 	P := GearCurrentLocation( PC );
 	for D := 0 to 7 do begin
-		if NumVisibleGears( GB , P.X + AngDir[ D , 1 ] , P.Y + AngDir[ D , 2 ] ) > 0 then begin
+		if NumVisibleUsableGearsXY( GB , P.X + AngDir[ D , 1 ] , P.Y + AngDir[ D , 2 ] , 'USE' ) > 0 then begin
 			if PropD = -1 then PropD := D
 			else PropD := -2;
 		end;
@@ -669,9 +669,9 @@ begin
 
 	Trigger := Skill_Use_Trigger[ Skill ];
 
-	if ( PropD = -1 ) and ( NumVisibleGears( GB , P.X , P.Y ) > 0 ) then begin
+	if ( PropD = -1 ) and ( NumVisibleUsableGearsXY( GB , P.X , P.Y , Trigger ) > 0 ) then begin
 		if not ActivatePropAtSpot( GB , PC , P.X , P.Y , Trigger ) then DialogMsg( MsgString( 'PCUS_NotFound' ) );
-	end else if ( PropD <> -1 ) and ( NumVisibleGears( GB , P.X + AngDir[ PropD , 1 ] , P.Y + AngDir[ PropD , 2 ] ) > 0 ) then begin
+	end else if ( PropD <> -1 ) and ( NumVisibleUsableGearsXY( GB , P.X + AngDir[ PropD , 1 ] , P.Y + AngDir[ PropD , 2 ] , Trigger ) > 0 ) then begin
 		if not ActivatePropAtSpot( GB , PC , P.X + AngDir[ PropD , 1 ] , P.Y + AngDir[ PropD , 2 ] , Trigger ) then DialogMsg( MsgString( 'PCUS_NotFound' ) );
 	end else if GB^.Scene <> Nil then begin
 		TriggerGearScript( GB , GB^.Scene , Trigger );

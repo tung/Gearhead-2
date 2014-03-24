@@ -34,9 +34,11 @@
 
 		return o
 	end
+	--[[ Commented so that all gears are not considered usable by default.
 	function proto_gear.USE( self )
 		gh_Print( "Using something!" )
 	end
+	--]]
 	function proto_gear:GetG()
 		return gh_GetGearG( self.ptr )
 	end
@@ -380,6 +382,12 @@ function gh_deregister( gearptr )
 	end
 
 	gh[gearptr] = nil
+end
+
+function gh_hastrigger( gearptr, ghtrigger )
+	-- See if a trigger script exists for the given gearptr.
+	local mygear = gh[gearptr]
+	return mygear ~= nil and mygear[ghtrigger] ~= nil
 end
 
 function gh_trigger( gearptr, ghtrigger )

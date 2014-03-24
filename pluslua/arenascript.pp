@@ -98,6 +98,7 @@ Procedure RemoveLancemate( GB: GameBoardPtr; Mek: GearPtr; DoMessage: Boolean );
 Procedure HandleInteract( GB: GameBoardPtr; PC,NPC,Persona: GearPtr );
 Procedure DoTalkingWIthNPC( GB: GameBoardPtr; PC,Mek: GearPtr; ByTelephone: Boolean );
 
+Function GearHasTrigger( GB: GameBoardPtr; MyGear: GearPtr; const Trigger: String ): Boolean;
 Function TriggerGearScript( GB: GameBoardPtr; MyGear: GearPtr; const Trigger: String ): Boolean;
 Function CheckTriggerAlongPath( const T: String; GB: GameBoardPtr; Plot: GearPtr; CheckAll: Boolean ): Boolean;
 Procedure HandleTriggers( GB: GameBoardPtr );
@@ -1420,6 +1421,35 @@ begin
 		{ Hand everything to the interaction procedure. }
 		HandleInteract( GB , PC , NPC , Interact );
 	end;
+end;
+
+Function GearHasTrigger( GB: GameBoardPtr; MyGear: GearPtr; const Trigger: String ): Boolean;
+	{ See if a gear has a particular trigger script defined. }
+	{ IMPORTANT: The Trigger should be upper case. }
+var
+	E: String;
+	it: Boolean;
+begin
+	{ Initialize needed variables. }
+	AS_GB := GB;
+
+	{ Next, call the HandleTrigger function in Lua. }
+	lua_getglobal( MyLua , 'gh_hastrigger' );
+	lua_pushlightuserdata( MyLua , Pointer( MyGear ) );
+	lua_pushlstring( MyLua , @Trigger[1] , Length( Trigger ) );
+	if lua_pcall( MyLua , 2 , 1 , 0 ) <> 0 then begin
+		E := 'GearHasTrigger ERROR: ' + lua_tostring( MyLua , -1 );
+		DialogMsg( E );
+		RecordError( E );
+		it := False;
+	end else begin
+		it := lua_toboolean( MyLua , -1 );
+	end;
+
+	{ Get rid of the boolean or error message now on the stack. }
+	lua_settop( MyLua , 0 );
+
+	GearHasTrigger := it;
 end;
 
 Function TriggerGearScript( GB: GameBoardPtr; MyGear: GearPtr; const Trigger: String ): Boolean;

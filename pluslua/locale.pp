@@ -513,6 +513,9 @@ Function NumVisibleItemsAtSpot( GB: GameBoardPtr; X,Y: Integer ): Integer;
 Function GetVisibleItemAtSpot( GB: GameBoardPtr; X,Y,N: Integer ): GearPtr;
 Function FindVisibleItemAtSpot( GB: GameBoardPtr; X,Y: Integer ): GearPtr;
 
+Function NumVisibleUsableGearsXY( GB: GameBoardPtr; X,Y: Integer; const Trigger: String ): Integer;
+Function FindVisibleUsableGearXY( GB: GameBoardPtr; X,Y,N: Integer; const Trigger: String): GearPtr;
+
 Procedure UpdateShadowMap( GB: GameBoardPtr );
 Function TileBlocksLOS( GB: GameBoardPtr; X,Y,Z: Integer ): Boolean;
 Function CalcObscurement(X1,Y1,Z1,X2,Y2,Z2: Integer; gb: GameBoardPtr): Integer;
@@ -591,12 +594,13 @@ Function IsHidden( Mek: GearPtr ): Boolean;
 implementation
 
 { Include specific GH*.pp units here. }
-uses ghweapon,ghprop,ghchars,texutil,ghmovers;
+uses ghweapon,ghprop,ghchars,texutil,ghmovers,arenascript;
 
 Type
 	LPattern = Record	{ Location Pattern }
 		X,Y,Z: Integer;		{ Tile to search }
 		{ Set Z outside normal range -5...+5 to exclude it as a search parameter }
+		Trigger: String;	{ Used when searching for triggerable props. }
 		Only_Visibles: Boolean;	{ Only search for visible gears? }
 		Only_Masters: Integer;	{ Only search for master gears? }
 	end;
@@ -605,6 +609,7 @@ Const
 	LP_MustBeBlocker = 2;
 	LP_MustBeMaster = 1;
 	LP_MustNotBeMaster = -1;
+	LP_MustBeUsable = -2;
 
 	LowShadow = -3;
 	HiShadow = 5;
@@ -1394,6 +1399,8 @@ begin
 				it := it and IsBlocker( Mek );
 			end else if Match.Only_Masters = LP_MustNotBeMaster then begin
 				it := it AND NOT IsMasterGear( Mek );
+			end else if Match.Only_Masters = LP_MustBeUsable then begin
+				it := it AND (( Mek^.G = GG_MetaTerrain ) OR GearHasTrigger( GB , Mek , Match.Trigger ));
 			end;
 
 			{ If we're only looking for visible gears, }
@@ -1604,7 +1611,35 @@ begin
 	FindVisibleItemAtSpot := FindBestMatch( GB , Match );
 end;
 
+Function NumVisibleUsableGearsXY( GB: GameBoardPtr; X,Y: Integer; const Trigger: String ): Integer;
+	{ Count the visible, usable items at the specified coordinates. }
+	{ IMPORTANT: The Trigger should be upper case. }
+var
+	NVUG_Search: LPattern;
+begin
+	NVUG_Search.X := X;
+	NVUG_Search.Y := Y;
+	NVUG_Search.Z := -10;
+	NVUG_Search.Only_Visibles := True;
+	NVUG_Search.Only_Masters := LP_MustBeUsable;
+	NVUG_Search.Trigger := Trigger;
+	NumVisibleUsableGearsXY := NumMatchesPresent( GB , NVUG_Search );
+end;
 
+Function FindVisibleUsableGearXY( GB: GameBoardPtr; X,Y,N: Integer; const Trigger: String): GearPtr;
+	{ Find the Nth visible, usable item at the specified coordinates. }
+	{ IMPORTANT: The Trigger should be upper case. }
+var
+	FVUG_Search: LPattern;
+begin
+	FVUG_Search.X := X;
+	FVUG_Search.Y := Y;
+	FVUG_Search.Z := -10;
+	FVUG_Search.Only_Visibles := True;
+	FVUG_Search.Only_Masters := LP_MustBeUsable;
+	FVUG_Search.Trigger := Trigger;
+	FindVisibleUsableGearXY := FindMatchNumber( GB , FVUG_Search , N );
+end;
 
 Function FindVisibleBlockerAtSpot( GB: GameBoardPtr; X,Y: Integer ): GearPtr;
 	{ Locate a blocker gear at spot X,Y. Return Nil if no such }
