@@ -463,7 +463,7 @@ var
 	MyText: PSDL_Surface;
 begin
 	pline := QuickPCopy( msg );
-	MyText := TTF_RenderText_Solid( F , pline , C );
+	MyText := TTF_RenderText_Blended( F , pline , C );
 {$IFDEF LINUX}
 	if MyText <> Nil then SDL_SetColorKey( MyText , SDL_SRCCOLORKEY , SDL_MapRGB( MyText^.Format , 0 , 0, 0 ) );
 {$ENDIF}
@@ -482,7 +482,7 @@ var
 begin
 	if msg = '' then Exit;
 	pline := QuickPCopy( msg );
-	MyText := TTF_RenderText_Solid( F , pline , C );
+	MyText := TTF_RenderText_Blended( F , pline , C );
 {$IFDEF LINUX}
 	if MyText <> Nil then SDL_SetColorKey( MyText , SDL_SRCCOLORKEY , SDL_MapRGB( MyText^.Format , 0 , 0, 0 ) );
 {$ENDIF}
@@ -501,7 +501,7 @@ var
 	MyText: PSDL_Surface;
 begin
 	pline := QuickPCopy( msg );
-	MyText := TTF_RenderText_Solid( F , pline , C );
+	MyText := TTF_RenderText_Blended( F , pline , C );
 {$IFDEF LINUX}
 	if MyText <> Nil then SDL_SetColorKey( MyText , SDL_SRCCOLORKEY , SDL_MapRGB( MyText^.Format , 0 , 0, 0 ) );
 {$ENDIF}
@@ -522,7 +522,7 @@ var
 begin
 	if msg = '' then Exit;
 	pline := QuickPCopy( msg );
-	MyText := TTF_RenderText_Solid( F , pline , C );
+	MyText := TTF_RenderText_Blended( F , pline , C );
 {$IFDEF LINUX}
 	if MyText <> Nil then SDL_SetColorKey( MyText , SDL_SRCCOLORKEY , SDL_MapRGB( MyText^.Format , 0 , 0, 0 ) );
 {$ENDIF}
@@ -1197,7 +1197,9 @@ begin
 		SA := SList;
 		while SA <> Nil do begin
 			pline := QuickPCopy( SA^.Info );
-			S_Temp := TTF_RenderText_Solid( game_font , pline , fg );
+			S_Temp := TTF_RenderText_Blended( game_font , pline , fg );
+			{ Disable SDL_SRCALPHA so that blitting to S_Total just copies the RGBA data. }
+			SDL_SetAlpha( S_Temp , 0 , SDL_ALPHA_OPAQUE );
 {$IFDEF LINUX}
 			SDL_SetColorKey( S_Temp , SDL_SRCCOLORKEY , SDL_MapRGB( S_Temp^.Format , 0 , 0, 0 ) );
 {$ENDIF}
@@ -1353,7 +1355,7 @@ Procedure MoreText( LList: SAttPtr; FirstLine: Integer );
 		for t := 1 to ( ZONE_MoreText.H  div  TTF_FontLineSkip( game_font ) ) do begin
 			if CLine <> Nil then begin
 				pline := QuickPCopy( CLine^.Info );
-				MyImage := TTF_RenderText_Solid( game_font , pline , NeutralGrey );
+				MyImage := TTF_RenderText_Blended( game_font , pline , NeutralGrey );
 				Dispose( pline );
 				SDL_BlitSurface( MyImage , Nil , Game_Screen , @MyDest );
 				SDL_FreeSurface( MyImage );

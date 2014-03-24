@@ -175,7 +175,7 @@ var
 	PLine: PChar;
 begin
 	pline := QuickPCopy( msg );
-	MyImage := TTF_RenderText_Solid( Game_Font , pline , C );
+	MyImage := TTF_RenderText_Blended( Game_Font , pline , C );
 	Dispose( pline );
 
 	if MyImage <> Nil then CDest.X := CZone.X + ( ( CZone.W - MyImage^.W ) div 2 );
