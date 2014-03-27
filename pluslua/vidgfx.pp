@@ -390,23 +390,26 @@ var
 	getit: Char;
 	TK: TKeyEvent;
 begin
-	TK := TranslateKeyEvent( GetKeyEvent );
+	getit := #0;
+	while getit = #0 do begin
+		TK := TranslateKeyEvent( GetKeyEvent );
 
-	if GetKeyEventFlags( TK ) = kbASCII then begin
-		getit := GetKeyEventChar( TK );
-	end else if GetKeyEventFlags( TK ) = kbFnKey then begin
-		case GetKeyEventCode( TK ) of
-			kbdUp:		getit := KeyMap[ KMC_North ].KCode; {Up Cursor Key}
-			kbdHome:	getit := KeyMap[ KMC_NorthWest ].KCode; {Home Cursor Key}
-			kbdPgUp:	getit := KeyMap[ KMC_NorthEast ].KCode; {PageUp Cursor Key}
-			kbdDown:	getit := KeyMap[ KMC_South ].KCode; {Down Cursor Key}
-			kbdEnd:		getit := KeyMap[ KMC_SouthWest ].KCode; {End Cursor Key}
-			kbdPgDn:	getit := KeyMap[ KMC_SouthEast ].KCode; {PageDown Cursor Key}
-			kbdLeft:	getit := KeyMap[ KMC_West ].KCode; {Left Cursor Key}
-			kbdRight:	getit := KeyMap[ KMC_East ].KCode; {Right Cursor Key}
+		if GetKeyEventFlags( TK ) = kbASCII then begin
+			getit := GetKeyEventChar( TK );
+		end else if GetKeyEventFlags( TK ) = kbFnKey then begin
+			case GetKeyEventCode( TK ) of
+				kbdUp:		getit := RPK_Up; {Up Cursor Key}
+				kbdHome:	getit := RPK_UpLeft; {Home Cursor Key}
+				kbdPgUp:	getit := RPK_UpRight; {PageUp Cursor Key}
+				kbdDown:	getit := RPK_Down; {Down Cursor Key}
+				kbdEnd:		getit := RPK_DownLeft; {End Cursor Key}
+				kbdPgDn:	getit := RPK_DownRight; {PageDown Cursor Key}
+				kbdLeft:	getit := RPK_Left; {Left Cursor Key}
+				kbdRight:	getit := RPK_Right; {Right Cursor Key}
+			end;
+		end else begin
+			getit := ' ';
 		end;
-	end else begin
-		getit := ' ';
 	end;
 
 	RawKey := getit;
@@ -844,10 +847,10 @@ begin
 		A := RPGKey;
 
 		{ Possibly process this input. }
-		if A = KeyMap[ KMC_South ].KCode then begin
+		if ( A = KeyMap[ KMC_South ].KCode ) or ( A = '2' ) or ( A = RPK_Down ) then begin
 			Inc( FirstLine );
 			DisplayTextHere;
-		end else if A = KeyMap[ KMC_North ].KCode then begin
+		end else if ( A = KeyMap[ KMC_North ].KCode ) or ( A = '8' ) or ( A = RPK_Up ) then begin
 			Dec( FirstLine );
 			DisplayTextHere;
 		end;
