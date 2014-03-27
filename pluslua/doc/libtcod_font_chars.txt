@@ -1,0 +1,18 @@
+Below is a grid of Unicode characters matching libtcod's default font layout.
+
+ ► 0@P`pÇÉá░└∂◊−
+☺◄!1AQaqüæí▒┴Đ◆±
+☻↕"2BRbréÆó▓┬Ê▘=
+♥‼#3CScsâôú│├Ë▗¾
+♦¶$4DTdtäöñ┤─È▀¶
+♣§%5EUeuàòÑÁ┼ⁱ▗§
+♠▬&6FVfvåûªÂãÍ▚÷
+•↨'7GWgwçùºÀÃÎ▐¸
+◘↑(8HXhxêÿ¿©╚Ï▖°
+○↓)9IYiyëÖ®╣╔┘Ú¨
+◙→*:JZjzèÜ¬║╩┌Û·
+♂←+;K[k{ïø½╗╦█Ù¹
+♀∟,<L\l|î£¼╝╠▄ý³
+♪↔-=M]m}ìØ¡¢═¦Ý²
+♫▲.>N^n~Ä×«¥╬ì¯■
+☼▼/?O_o⌂Åƒ»┐¤▀´ 

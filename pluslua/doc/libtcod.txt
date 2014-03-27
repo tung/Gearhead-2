@@ -1,0 +1,67 @@
+= libtcod =
+
+libtcod is a library of useful tools for roguelikes.  In the context of
+GearHead it provides an alternative way to present the game's ASCII interface
+without using the operating system's terminal/console, which has a number of
+benefits:
+
+ - Custom fonts via image files.
+ - Custom box drawing and message arrow characters.
+ - No input quirks, e.g. having to double-press escape on Linux.
+ - No limits on terminal size, e.g. Windows console.
+ - Same behavior across platforms, for those who care about such things.
+
+
+== Compiling GearHead ASCII to use libtcod ==
+
+These instructions are for Linux, but the same ideas apply for compiling on
+other operating systems.
+
+ 0. Ensure have FreePascal installed, as per a usual GearHead compile.
+
+ 1. Download and extract libtcod 1.5.1 from http://doryen.eptalys.net/libtcod/
+
+ 2. Compile GearHead with the ASCII and LIBTCOD flags, and give the path to
+    libtcod to the linker:
+
+    fpc -dASCII -dLIBTCOD -Fl/path/to/libtcod Arena_R.pas
+
+GearHead will now play using libtcod's graphics and input system instead of
+running in a terminal, like so:
+
+    LD_LIBRARY_PATH=/path/to/libtcod ./Arena_R
+
+
+== Playing libtcod GearHead ==
+
+GearHead with libtcod plays just like the ASCII version, but libtcod allows
+customization.
+
+To display extra rows and columns, change the SCREENWIDTH and SCREENHEIGHT
+options in GearHead's config file ('config.cfg').
+
+To use a different font, you can do one of two things: replace 'terminal.png'
+or provide your own font file.
+
+Replacing 'terminal.png' requires that the image has the same character layout
+and width and height in characters as the default font image.  See libtcod's
+documentation for details.
+
+Using a font file with a different file name and/or character layout requires a
+config file for libtcod named 'libtcod.cfg'.  The syntax and an example file
+can be found in the libtcod package.
+
+
+== Limitations of libtcod-flavored GearHead ==
+
+The blinking/box/underline cursor isn't shown, since libtcod has no way to
+time-out to animate it when waiting for an input event, and the alternative of
+polling/waiting with a busy loop would consume more CPU than its worth.  Text
+entry, the one thing in GearHead that asks for a visible cursor, draws a big
+box around where you need to type anyway.
+
+Unicode is not supported.  libtcod can recognize it as input, but the custom
+keyboard layer that translates it for GearHead doesn't handle it.  Also, given
+the number of glyphs in a libtcod font image file versus the number of Unicode
+code points, it's unlikely libtcod would be able to show any useful amount of
+Unicode text.

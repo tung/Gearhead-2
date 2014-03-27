@@ -24,7 +24,12 @@ unit vidgfx;
 
 interface
 
-uses Video,Keyboard,uiconfig,texutil,gears;
+uses Video,Keyboard,
+{$IFDEF LIBTCOD}
+	tcod,	{ for box drawing characters }
+	tcodvideo, tcodkbd,
+{$ENDIF}
+	uiconfig,texutil,gears;
 
 Type
 	vgfx_rect = Record
@@ -747,9 +752,13 @@ var
 	LC: Boolean;		{Loop Condition.}
 	SA: SAttPtr;
 begin
-	{ CLean up the message a bit. }
+	{ Clean up the message a bit. }
 	DeleteWhiteSpace( msg );
+{$IFDEF LIBTCOD}
+	msg := TCOD_CHAR_ARROW_E + ' ' + msg;
+{$ELSE}
 	msg := '> ' + msg;
+{$ENDIF}
 
 	{THELine = The first word in this iteration}
 	THELine := ExtractWord( msg );
@@ -969,6 +978,22 @@ end;
 
 Procedure InfoBox( MyDest: VGFX_Rect );
 	{ Draw a box around the specified location. }
+const
+{$IFDEF LIBTCOD}
+	hl = TCOD_CHAR_HLINE;
+	vl = TCOD_CHAR_VLINE;
+	ne = TCOD_CHAR_NE;
+	nw = TCOD_CHAR_NW;
+	se = TCOD_CHAR_SE;
+	sw = TCOD_CHAR_SW;
+{$ELSE}
+	hl = '-';
+	vl = '|';
+	ne = '+';
+	nw = '+';
+	se = '+';
+	sw = '+';
+{$ENDIF}
 var
 	X,Y: Integer;
 begin
@@ -979,17 +1004,17 @@ begin
 	MyDest.W := MyDest.W + 2;
 	MyDest.H := MyDest.H + 2;
 	for X := ( MyDest.X + 1 ) to ( MyDest.X + MyDest.W - 2 ) do begin
-		DrawGlyph( '-' , X , MyDest.Y , BorderBlue , StdBlack );
-		DrawGlyph( '-' , X , MyDest.Y + MyDest.H - 1 , BorderBlue , StdBlack );
+		DrawGlyph( hl , X , MyDest.Y , BorderBlue , StdBlack );
+		DrawGlyph( hl , X , MyDest.Y + MyDest.H - 1 , BorderBlue , StdBlack );
 	end;
 	for y := ( MyDest.Y + 1 ) to ( MyDest.Y + MyDest.H - 2 ) do begin
-		DrawGlyph( '|' , MyDest.X , Y , BorderBlue , StdBlack );
-		DrawGlyph( '|' , MyDest.X + MyDest.W - 1 , Y , BorderBlue , StdBlack );
+		DrawGlyph( vl , MyDest.X , Y , BorderBlue , StdBlack );
+		DrawGlyph( vl , MyDest.X + MyDest.W - 1 , Y , BorderBlue , StdBlack );
 	end;
-	DrawGlyph( '+' , MyDest.X , MyDest.Y , BorderBlue , StdBlack );
-	DrawGlyph( '+' , MyDest.X + MyDest.W - 1 , MyDest.Y , BorderBlue , StdBlack );
-	DrawGlyph( '+' , MyDest.X + MyDest.W - 1 , MyDest.Y + MyDest.H - 1 , BorderBlue , StdBlack );
-	DrawGlyph( '+' , MyDest.X , MyDest.Y + MyDest.H - 1 , BorderBlue , StdBlack );
+	DrawGlyph( nw , MyDest.X , MyDest.Y , BorderBlue , StdBlack );
+	DrawGlyph( ne , MyDest.X + MyDest.W - 1 , MyDest.Y , BorderBlue , StdBlack );
+	DrawGlyph( se , MyDest.X + MyDest.W - 1 , MyDest.Y + MyDest.H - 1 , BorderBlue , StdBlack );
+	DrawGlyph( sw , MyDest.X , MyDest.Y + MyDest.H - 1 , BorderBlue , StdBlack );
 end;
 
 Procedure InfoBox( Z: VGFX_Zone );
